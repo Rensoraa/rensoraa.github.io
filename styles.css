@@ -6,59 +6,120 @@
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #1a1a1a, #2b2b2b);
+  font-family: "Poppins", sans-serif;
+  background: radial-gradient(circle at top left, #0f0f0f, #1a1a1a 60%);
   color: #f2f2f2;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2rem;
+  overflow: hidden;
 }
 
+/* Shiny background blobs */
+body::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,77,109,0.6), transparent 70%);
+  top: -50px;
+  left: -50px;
+  filter: blur(120px);
+  z-index: -1;
+}
+body::after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(125,60,255,0.5), transparent 70%);
+  bottom: -100px;
+  right: -100px;
+  filter: blur(150px);
+  z-index: -1;
+}
+
+/* Glossy container */
 .container {
-  max-width: 600px;
+  max-width: 650px;
   width: 100%;
-  background: #222;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px) saturate(180%);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
   text-align: center;
-  transition: transform 0.2s ease;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6),
+              inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
 }
 
-.container:hover {
-  transform: translateY(-5px);
+/* Glossy highlight */
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 25%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.2), transparent 60%);
+  transform: skewX(-20deg);
+  pointer-events: none;
 }
 
-h1 {
-  font-size: 2rem;
+/* Title */
+.glossy-title {
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #ff4d6d, #7d3cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 1rem;
-  color: #ff4d6d;
 }
 
-p {
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
+/* Description */
+.desc {
+  font-size: 1.1rem;
   color: #ddd;
+  margin-bottom: 2rem;
 }
 
-button {
-  background: #ff4d6d;
-  color: #fff;
+/* Buttons row */
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Glowing button */
+.glow-btn {
+  background: linear-gradient(90deg, #ff4d6d, #7d3cff);
   border: none;
-  padding: 0.75rem 1.5rem;
+  color: white;
+  padding: 0.9rem 2rem;
   font-size: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 50px;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 0 15px rgba(255,77,109,0.6),
+              0 0 25px rgba(125,60,255,0.6);
+  transition: all 0.3s ease;
+  text-decoration: none; /* for links */
+  display: inline-block;
 }
 
-button:hover {
-  background: #e03e5a;
-  transform: scale(1.05);
+.glow-btn:hover {
+  box-shadow: 0 0 25px rgba(255,77,109,0.9),
+              0 0 40px rgba(125,60,255,0.9);
+  transform: translateY(-3px) scale(1.05);
 }
 
-button:active {
+.glow-btn:active {
   transform: scale(0.95);
+}
+
+/* Link-style button (same as button) */
+.link-btn {
+  line-height: 1.2;
 }
