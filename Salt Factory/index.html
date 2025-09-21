@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salt Farming Factory</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="description" content="Collecting the saltiest messages and listing them out as a memory">
+
+  <!-- Open Graph / Discord preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Salt Farming Factory">
+  <meta property="og:description" content="Collecting the saltiest messages and listing them out as a memory">
+  <meta property="og:image" content="https://i.imgur.com/l0lOedy.png">
+  <meta property="og:url" content="https://rensoraa.github.io/Salt-farming-factory/">
+
+  <!-- Twitter card (fallback) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Salt Farming Factory">
+  <meta name="twitter:description" content="Collecting the saltiest messages and listing them out as a memory">
+  <meta name="twitter:image" content="https://i.imgur.com/l0lOedy.png">
+
+  <!-- Theme color / embed accent -->
+  <meta name="theme-color" content="#fc0352">
+</head>
+<body>
+  <header>
+    <h1>Salt Farming Factory</h1>
+    <p class="subtitle">Collecting salty messages from people who take video games too seriously</p>
+  </header>
+
+  <main>
+    <div class="gallery">
+      <!-- Example images, replace src with your own -->
+      <div class="photo-card">
+        <img src="assets/Games/Dead by daylight/Salty1.png" alt="Salty Message 1">
+      </div>
+      <div class="photo-card">
+        <img src="assets/Games/Dead by daylight/Salty2.png" alt="Salty Message 2">
+      </div>
+    <div class="photo-card">
+        <img src="assets/Games/Dead by daylight/Salty3.png" alt="Salty Message 3">
+      </div>
+       <div class="photo-card">
+        <img src="assets/Games/Dead by daylight/Salty4.png" alt="Salty Message 4">
+      </div>  
+      <div class="photo-card">
+        <img src="assets/Games/Dead by daylight/Salty5.png" alt="Salty Message 5">
+      </div>  
+      <!-- Add more photos here -->
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Salt Farming Factory</p>
+  </footer>
+
+ <!-- Floating info button -->
+  <button class="info-toggle" id="infoToggle">
+    <img src="https://cdn-icons-png.flaticon.com/512/1/1176.png" alt="Info">
+  </button>
+
+<!-- Modal overlay -->
+<div class="info-modal" id="infoModal">
+  <div class="info-content">
+    <button class="close-btn" id="closeBtn">✖</button>
+    <h2>About Salt Farming Factory</h2>
+    
+    <p><strong>Started:</strong> August 2025</p>
+    <p><strong>Goal:</strong> Collect the saltiest treasures</p>
+    <p><strong>Why:</strong> Because if people wanna be salty about a video game, I might as well make fun out of them!</p>
+    <p><strong>I can't understand what they say:</strong> Most of the images could in fact be in a language you might not understand. Copy the image and ask ChatGPT "what are they saying" and paste the image!</p>
+    <p><strong>Are all these messages towards you ?:</strong> They might be, But some of them might not. over all this is just meant as a collection that made me smile</p>
+    <p><strong>why are the images so off-sized:</strong> Well, its a fucking Meme, so i couldn't be bothered Paying attention to such details. images get posted as they are recorded!</p>
+  </div>
+</div>
+
+
+  <script>
+    const infoToggle = document.getElementById("infoToggle");
+    const infoModal = document.getElementById("infoModal");
+    const closeBtn = document.getElementById("closeBtn");
+
+    // Open modal
+    infoToggle.addEventListener("click", () => {
+      infoModal.classList.add("open");
+    });
+
+    // Close modal by button
+    closeBtn.addEventListener("click", () => {
+      infoModal.classList.remove("open");
+    });
+
+    // Close modal by ESC key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        infoModal.classList.remove("open");
+      }
+    });
+
+    // Close modal by clicking outside content
+    infoModal.addEventListener("click", (e) => {
+      if (e.target === infoModal) {
+        infoModal.classList.remove("open");
+      }
+    });
+  </script>
+</body>
+</html>

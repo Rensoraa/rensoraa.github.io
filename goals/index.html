@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>P100 Goals</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <link rel="icon" href="https://p100library.com/favicon.ico" />
+</head>
+<body>
+  <header>
+    
+    <h1>🎯 Character P100 Goals</h1>
+    <p class="subtitle">Tracking who’s next in line for the grind.</p>
+    <a href="https://rensoraa.github.io/p100/" class="back-button">← Back to Main Site</a>
+
+  </header>
+
+  <section id="in-progress-container" class="goals-container">
+      <!-- High prio -->
+    <div class="character-card">
+      <h2>Pyramid Head</h2>
+      <span class="role-label role-killer">Killer</span>
+      <img src="assets/Portraits/Killer/pphead.png">
+      <p class="progress">Prestige 62 → Goal: 100</p>
+      <p class="priority priority-high">🔥 High Priority</p>
+    </div>
+
+      <!-- Mid prio -->
+
+      <div class="character-card">
+      <h2>The Skull Merchant</h2>
+      <span class="role-label role-killer">Killer</span>
+      <img src="assets/Portraits/Killer/skully.png">
+      <p class="progress">Prestige 3 → Goal: 100</p>
+      <p class="priority priority-medium">⚠️ Medium Priority</p>
+    </div>
+
+      <!-- Low prio -->
+
+      <div class="character-card">
+      <h2>The Clown</h2>
+      <span class="role-label role-killer">Killer</span>
+      <img src="assets/Portraits/Killer/clown.png">
+      <p class="progress">Prestige 11 → Goal: 100</p>
+      <p class="priority priority-low">📌 - 🤡 Low Priority</p>
+    </div>
+
+        <div class="character-card">
+      <h2>The Blight</h2>
+      <span class="role-label role-killer">Killer</span>
+      <img src="assets/Portraits/Killer/blight.png">
+      <p class="progress">Prestige 34 → Goal: 100</p>
+      <p class="priority priority-low">📌 Low Priority</p>
+    </div>
+
+    <div class="character-card">
+      <h2>Ada Wong</h2>
+      <span class="role-label role-survivor">Survivor</span>
+      <img src="assets/Portraits/Surv/ada.png">
+      <p class="progress">Prestige 9 → Goal: 100</p>
+      <p class="priority priority-low">📌 Low Priority</p>
+    </div>
+
+      <div class="character-card">
+      <h2>Ace Visconti</h2>
+      <span class="role-label role-survivor">Survivor</span>
+      <img src="assets/Portraits/Surv/ace.png">
+      <p class="progress">Prestige 16 → Goal: 100</p>
+      <p class="priority priority-low">📌 Low Priority</p>
+    </div>
+
+    <div class="character-card">
+      <h2>Nea Karlsson</h2>
+      <span class="role-label role-survivor">Survivor</span>
+      <img src="assets/Portraits/Surv/nea.png">
+      <p class="progress">Prestige 100 ✅</p>
+      <p class="progress">Unlocked on 27 Mar 2025</p>
+      <p class="priority priority-low">Maxed</p>
+    </div>
+    <div class="character-card">
+      <h2>Sable Ward</h2>
+      <span class="role-label role-survivor">Survivor</span>
+      <img src="assets/Portraits/Surv/sable_ward.png">
+      <p class="progress">Prestige 100 ✅</p>
+      <p class="progress">Unlocked on 22 Jul 2025</p>
+      <p class="priority priority-low">Maxed</p>
+    </div>
+           <div class="character-card">
+      <h2>Mikaela Reid</h2>
+      <span class="role-label role-survivor">Survivor</span>
+      <img src="assets/Portraits/Surv/mika.png">
+      <p class="progress">Prestige 100 ✅</p>
+      <p class="progress">Unlocked on 6 Sep 2025</p>
+      <p class="priority priority-low">Maxed</p>
+    </div>
+           <div class="character-card">
+      <h2>The Legion</h2>
+      <span class="role-label role-killer">Killer</span>
+      <img src="assets/Portraits/Killer/legion.png">
+      <p class="progress">Prestige 100 ✅</p>
+      <p class="progress">Unlocked on 18 Aug 2025</p>
+      <p class="priority priority-low">Maxed</p>
+    </div>
+  </section>
+
+  <!-- P100 Section Wrapper -->
+  <section id="p100-wrapper">
+    <h2>Reached Prestige 100</h2>
+    <section id="p100-container" class="goals-container"></section>
+  </section>
+
+  <footer>
+    <p>Last updated: 08/04/2025</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const inProgressContainer = document.getElementById('in-progress-container');
+      const p100Container = document.getElementById('p100-container');
+
+      const cards = Array.from(inProgressContainer.querySelectorAll('.character-card'));
+
+      let hasP100 = false;
+
+      cards.forEach(card => {
+        const progressText = card.querySelector('.progress').textContent.trim();
+
+        if (progressText.includes('Prestige 100')) {
+          p100Container.appendChild(card);
+          hasP100 = true;
+        }
+      });
+
+      // Show or hide P100 wrapper depending on presence of P100 characters
+      const p100Wrapper = document.getElementById('p100-wrapper');
+      if (hasP100) {
+        p100Wrapper.style.display = 'block';
+      } else {
+        p100Wrapper.style.display = 'none';
+      }
+    });
+
+    function goBack() {
+  window.location.href = 'https://rensoraa.github.io/p100/'; 
+}
+
+  </script>
+</body>
+</html>

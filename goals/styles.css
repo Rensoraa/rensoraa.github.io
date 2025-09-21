@@ -1,0 +1,172 @@
+/* Reset and basics */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #111;
+  color: #eee;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+header {
+  padding: 2rem 1rem 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.3rem;
+  color: #ff4444;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+.goals-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem 2rem;
+}
+
+.character-card {
+  background-color: #1a1a1a;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px #ff0000a0;
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+}
+
+.character-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 30px #ff0000cc;
+}
+
+.character-card h2 {
+  font-size: 1.5rem;
+  color: #ff4444;
+  margin-bottom: 0.4rem;
+}
+
+.role-label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background-color: #ff4444;
+  color: #111;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px #ff0000aa;
+}
+
+.role-survivor {
+  background-color: #4cff62;
+  box-shadow: 0 0 10px #4cff62aa;
+}
+
+.role-killer {
+  background-color: #ff4444;
+  box-shadow: 0 0 10px #ff4444aa;
+}
+
+.progress {
+  font-size: 1rem;
+  color: #ccc;
+  margin-top: 0.4rem;
+}
+
+.priority {
+  font-weight: bold;
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+}
+
+.priority-high {
+  color: #ff4444;
+  text-shadow: 0 0 8px #ff0000aa;
+}
+
+.priority-medium {
+  color: #ffa500;
+  text-shadow: 0 0 5px #ffaa00aa;
+}
+
+.priority-low {
+  color: #777;
+}
+
+#p100-wrapper {
+  max-width: 900px;
+  margin: 2rem auto 3rem;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+#p100-wrapper h2 {
+  color: #ff4444;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+footer {
+  padding: 1rem;
+  background-color: #1a1a1a;
+  font-size: 0.9rem;
+  color: #777;
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+}
+header {
+  position: relative;
+  padding: 2rem 1rem 1rem;
+  text-align: center;
+}
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #ff4444;
+  color: #111;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #ff4444aa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  z-index: 9999;
+}
+
+.back-button:hover,
+.back-button:focus {
+  background-color: #cc0000;
+  color: #fff;
+  box-shadow: 0 0 15px #cc0000dd;
+}
+.note {
+  font-size: 15px;
+  color: #cc0000;
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+}
