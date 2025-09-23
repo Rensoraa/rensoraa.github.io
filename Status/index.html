@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maintenance</title>
+  <link rel="stylesheet" href="status.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <div class="container">
+    <h1 class="glossy-title"> Site Maintenance </h1>
+    <p class="desc">Some parts of the site are temporarily unavailable.<br>We’ll be back shortly!</p>
+
+    <!-- Adaptive page list -->
+    <div id="status-box" class="glass-sub">
+      <h2 class="sub-title">Page Status</h2>
+      <ul id="down-list" class="status-list"></ul>
+      <p id="all-clear" class="all-clear">✅ All pages are operational!</p>
+    </div>
+
+    <!-- Gimmicks -->
+    <div class="fun-box">
+      <p id="clock" class="clock"></p>
+      <p id="tip" class="tip"></p>
+    </div>
+
+    <div class="button-row">
+      <a href="/" class="glow-btn">Return Home</a>
+    </div>
+  </div>
+
+  <script>
+    // Config: list of unavailable pages
+    const unavailablePages = [
+        "Prestige Goals",
+      // Leave empty [] if nothing is down
+    ];
+
+    const downList = document.getElementById("down-list");
+    const allClear = document.getElementById("all-clear");
+
+    if (unavailablePages.length > 0) {
+      allClear.style.display = "none";
+      unavailablePages.forEach(page => {
+        const li = document.createElement("li");
+        li.textContent = `❌ ${page} is currently down`;
+        downList.appendChild(li);
+      });
+    } else {
+      downList.style.display = "none";
+    }
+
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("clock").textContent =
+        "🕒 " + now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Rotating tips
+    const tips = [
+  "Grab a coffee while you wait ☕",
+  "Remember to stretch! 🧘",
+  "Have you touched grass today? 🌱",
+  "Good things take time ⏳",
+  "Pro tip: survivors can crouch to hide their scratch marks 😉",
+  "Time for a quick snack run 🍕",
+  "Hydrate or diedrate 💧",
+  "Check your posture! 🪑",
+  "Perfect chance to queue up a song 🎶",
+  "Patience is a hidden achievement 🏆",
+  "Maybe it’s time for a power nap 😴",
+  "Tell a friend you appreciate them 💌",
+  "Update your Steam backlog — or at least pretend to 🎮",
+  "Breathe in… breathe out 🌬️",
+  "The Entity approves of waiting 🕷️",
+  "Imagine how clean your desk could be right now 🧹",
+  "Good excuse to grab some sunlight ☀️",
+  "Lag is just temporary… style is forever 😎",
+  "One does not simply rush maintenance 🧙",
+  "Queue times prepared you for this moment 🎲",
+  "Now’s the time to check your phone 🔔",
+  "Staring contest with your monitor 👀",
+  "Your snack stash misses you 🍫",
+  "Think about your next build 🛠️",
+  "Daydreaming is free 💭",
+  "Your water bottle is calling 💦",
+  "Stretch those wrists ⌨️",
+  "A great time to pet your cat 🐱",
+  "Or walk the dog 🐶",
+  "Maybe check your to-do list ✅",
+  "Remember that thing you forgot earlier? Yeah, that. 🤔",
+  "Perfect time to adjust your headset 🎧",
+  "Deep breaths, gamer 🫁",
+  "Imagine your perfect lobby 🎯",
+  "Maintenance today, fun tomorrow 🎉",
+  "Your chair could use a spin 🌀",
+  "Check if your mic is muted 🎙️",
+  "This is basically a mini loading screen ⏲️",
+  "Waiting builds character 🧩",
+  "Consider organizing your desktop 🗂️",
+  "The Entity whispers: 'soon' 👻",
+  "Pretend this is a cutscene 🎥",
+  "Achievements don’t unlock themselves 🏅",
+  "Waiting = XP in patience 📈"
+];
+
+    let tipIndex = 0;
+    function updateTip() {
+      document.getElementById("tip").textContent = tips[tipIndex];
+      tipIndex = (tipIndex + 1) % tips.length;
+    }
+    setInterval(updateTip, 4000);
+    updateTip();
+  </script>
+</body>
+</html>
