@@ -22,10 +22,11 @@
     <h2>Vee Boonyasak</h2>
     <span class="role-label role-survivor">Survivor</span>
     <img src="assets/Portraits/Surv/vee.png">
-    <p class="progress">Prestige 9 → Goal: 100</p>
+    <p class="progress">Prestige <span id="vee-prestige">0</span> → Goal: <span id="vee-goal">100</span></p>
     <p class="priority priority-high">🔥 High Priority</p>
   </div>
 </section>
+
 
 
   <section id="in-progress-container" class="goals-container">
@@ -158,5 +159,16 @@
 }
 
   </script>
+  <script>
+fetch('data/prestige.json')
+  .then(res => res.json())
+  .then(data => {
+    const veeData = data.Vee;
+    document.getElementById('vee-prestige').textContent = veeData.current;
+    document.getElementById('vee-goal').textContent = veeData.goal;
+  })
+  .catch(err => console.error("Failed to load prestige data:", err));
+</script>
+
 </body>
 </html>
