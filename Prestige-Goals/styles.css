@@ -170,3 +170,46 @@ header {
   left: 50%;
   transform: translateX(-50%);
 }
+#full-focus {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+#full-focus h1 {
+  color: #7d3cff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.3rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px #7d3cffaa;
+}
+
+/* Like character-card but with blue-purple glow */
+.focus-card {
+  background-color: #1a1a1a;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px #7d3cffaa;
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 300px;
+}
+
+.focus-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 30px #7d3cffcc;
+}
+
+.focus-card h2 {
+  font-size: 1.5rem;
+  color: #7d3cff;
+  margin-bottom: 0.4rem;
+}
+#full-focus {
+  max-width: 900px;
+  margin: 2rem auto 3rem; /* extra bottom margin for spacing */
+  padding: 0 1rem;
+  text-align: center;
+}
