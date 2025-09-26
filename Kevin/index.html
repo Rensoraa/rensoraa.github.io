@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Showcase — Glossy</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="brand" href="#">
+        <span class="brand-dot" aria-hidden="true"></span>
+        Kevin!
+      </a>
+    </div>
+  </header>
+
+  <main class="page-wrap">
+    <section class="hero">
+      <div class="glass hero-card">
+        <div class="hero-head">
+          <h1 class="glossy-title">Vee Showcase</h1>
+          <p class="lead">A place to highlight images i wanna show Kevin!</p>
+        </div>
+
+        <div class="showcase">
+          <figure class="showcase-card">
+            <img id="showcase-img" src="../Kevin/assets/download/Placeholder.jpg" alt="Showcase preview" />
+            <figcaption class="caption">
+              <div>
+                <strong>Title:</strong> • I'm just a place holder image •
+              </div>
+              <div class="meta">Rendered: 2025 • Resolution: N/A</div>
+            </figcaption>
+
+            <div class="actions">
+              <button id="viewBtn" class="glow-btn" aria-label="Open full preview">View</button>
+              <a id="downloadBtn" class="glow-btn" href="assets/showcase.jpg" download="showcase.jpg">Download</a>
+            </div>
+          </figure>
+        </div>
+
+        <p class="hint">Tip: press <kbd>Esc</kbd> to close the preview.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="glass footer-inner">
+      <p>© <span id="year"></span> - Rensora</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox hidden" role="dialog" aria-modal="true" aria-label="Image preview">
+    <button id="lbClose" class="lb-close" aria-label="Close preview">&times;</button>
+    <img id="lbImage" src="" alt="Full preview">
+    <div class="lb-caption" id="lbCaption"></div>
+  </div>
+
+  <script>
+    // small JS to handle view, download and lightbox
+    const img = document.getElementById('showcase-img');
+    const viewBtn = document.getElementById('viewBtn');
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImage');
+    const lbClose = document.getElementById('lbClose');
+    const lbCaption = document.getElementById('lbCaption');
+    const yearEl = document.getElementById('year');
+
+    yearEl.textContent = new Date().getFullYear();
+
+    function openLightbox() {
+      lbImg.src = img.src;
+      lbCaption.textContent = document.querySelector('.caption > div').textContent;
+      lb.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      lb.focus?.();
+    }
+
+    function closeLightbox() {
+      lb.classList.add('hidden');
+      document.body.style.overflow = '';
+      lbImg.src = '';
+    }
+
+    viewBtn.addEventListener('click', openLightbox);
+    img.addEventListener('click', openLightbox);
+    lbClose.addEventListener('click', closeLightbox);
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb) closeLightbox();
+    });
+
+    // keyboard: Esc to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !lb.classList.contains('hidden')) closeLightbox();
+    });
+
+    // progressive fallback: if image fails to load, hide controls
+    img.addEventListener('error', () => {
+      document.querySelector('.showcase-card .actions').style.display = 'none';
+      document.querySelector('.hint').textContent = 'Image unavailable.';
+    });
+  </script>
+</body>
+</html>
