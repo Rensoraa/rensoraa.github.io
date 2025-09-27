@@ -2,15 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Page Not Found</title>
+  <title>404 - Not Found</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="404.css">
 </head>
 <body>
+  <div class="bg"></div>
+
   <div class="container">
     <h1 class="glossy">404</h1>
     <p class="message">Oops... the page you’re looking for doesn’t exist.</p>
-    <a href="https://rensoraa.github.io" class="home-btn">Return Home</a>
+    <p class="sub-message" id="subMessage"></p>
+
+    <div class="button-row">
+      <a href="https://rensoraa.github.io" class="home-btn">Home</a>
+      <a href="https://rensoraa.github.io/Status" class="home-btn alt">Status</a>
+    </div>
   </div>
+
+  <footer>
+    <p>Made by <span class="highlight">Rensora</span></p>
+  </footer>
+
+  <script>
+    const messages = [
+      "Looks like you wandered off the path 🌌",
+      "Grab a coffee while you wait ☕",
+      "Remember to stretch! 🧘",
+      "Have you touched grass today? 🌱",
+      "Good things take time ⏳",
+      "Lost in the void? Try going home 🏠",
+      "404 doesn't mean forever 🚀",
+      "Check the URL - maybe it's hiding something 👀",
+      "Sometimes the wrong turn is the best adventure ✨"
+    ];
+
+    let msgIndex = 0;
+    const subMessageElement = document.getElementById("subMessage");
+
+    function changeMessage() {
+      subMessageElement.textContent = messages[msgIndex];
+      msgIndex = (msgIndex + 1) % messages.length;
+    }
+
+    changeMessage();
+    setInterval(changeMessage, 5000);
+  </script>
 </body>
 </html>
