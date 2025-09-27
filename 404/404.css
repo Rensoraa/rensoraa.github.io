@@ -1,0 +1,72 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Page background */
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #fff;
+}
+
+/* Centered container */
+.container {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  max-width: 500px;
+  width: 90%;
+}
+
+/* Glossy big 404 text */
+.glossy {
+  font-size: 8rem;
+  font-weight: 900;
+  letter-spacing: 5px;
+  background: linear-gradient(45deg, #ff2d2d, #a600ff, #00ffe7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 5s linear infinite;
+}
+
+/* Gradient shine effect */
+@keyframes shine {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Message under 404 */
+.message {
+  margin: 1.5rem 0;
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Return button */
+.home-btn {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  color: #fff;
+  background: linear-gradient(135deg, #ff2d2d, #a600ff);
+  text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.7);
+}

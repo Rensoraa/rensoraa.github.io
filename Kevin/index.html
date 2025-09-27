@@ -1,108 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kevin's Corner</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+  <meta charset="UTF-8">
+  <title>P100 Showcase</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="nav-inner">
-      <a class="brand" href="#">
-        <span class="brand-dot" aria-hidden="true"></span>
-        Kevin!
-      </a>
-    </div>
-  </header>
+  <h1>Prestige 100 Showcase</h1>
 
-  <main class="page-wrap">
-    <section class="hero">
-      <div class="glass hero-card">
-        <div class="hero-head">
-          <h1 class="glossy-title">Vee Showcase</h1>
-          <p class="lead">A place to highlight images i wanna show Kevin!</p>
-        </div>
-
-        <div class="showcase">
-          <figure class="showcase-card">
-            <img id="showcase-img" src="../Kevin/assets/download/Placeholder.jpg" alt="Showcase preview" />
-            <figcaption class="caption">
-              <div>
-                <strong>Title:</strong> • I'm just a place holder image •
-              </div>
-              <div class="meta">Rendered: 2025 • Resolution: N/A</div>
-            </figcaption>
-
-            <div class="actions">
-              <button id="viewBtn" class="glow-btn" aria-label="Open full preview">View</button>
-              <a id="downloadBtn" class="glow-btn" href="assets/showcase.jpg" download="showcase.jpg">Download</a>
-            </div>
-          </figure>
-        </div>
-
-        <p class="hint">Tip: press <kbd>Esc</kbd> to close the preview.</p>
+  <!-- Finished Section -->
+  <div class="section finished-section">
+    <h2>Finished</h2>
+    <div class="cards finished-cards">
+      <div class="card">
+        <img src="assets/Survivor/mikaela.png" alt="Mikaela Reid" class="lightbox-img">
+        <h3>Mikaela Reid</h3>
+        <p class="status">Prestige 100 ✅</p>
       </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="glass footer-inner">
-      <p>© <span id="year"></span> - Rensora</p>
     </div>
-  </footer>
+  </div>
 
-  <!-- Lightbox -->
-  <div id="lightbox" class="lightbox hidden" role="dialog" aria-modal="true" aria-label="Image preview">
-    <button id="lbClose" class="lb-close" aria-label="Close preview">&times;</button>
-    <img id="lbImage" src="" alt="Full preview">
-    <div class="lb-caption" id="lbCaption"></div>
+  <!-- In Progress Section -->
+  <div class="section">
+    <h2>In Progress</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="assets/Survivor/Vee.png" alt="Vee Boonyasak" class="lightbox-img">
+        <h3>Vee Boonyasak</h3>
+        <p class="status">Prestige 10 → 100</p>
+      </div>
+    </div>
+  </div>
+
+    <!-- Lightbox Overlay -->
+  <div id="lightbox" class="lightbox">
+    <span class="close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
   </div>
 
   <script>
-    // small JS to handle view, download and lightbox
-    const img = document.getElementById('showcase-img');
-    const viewBtn = document.getElementById('viewBtn');
-    const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lbImage');
-    const lbClose = document.getElementById('lbClose');
-    const lbCaption = document.getElementById('lbCaption');
-    const yearEl = document.getElementById('year');
+    // Get lightbox elements
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.querySelector(".close");
 
-    yearEl.textContent = new Date().getFullYear();
+// Add click event to all images with class "lightbox-img"
+document.querySelectorAll(".lightbox-img").forEach(img => {
+  img.addEventListener("click", () => {
+    lightbox.style.display = "block";
+    lightboxImg.src = img.src;
+  });
+});
 
-    function openLightbox() {
-      lbImg.src = img.src;
-      lbCaption.textContent = document.querySelector('.caption > div').textContent;
-      lb.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-      lb.focus?.();
-    }
+// Close button
+closeBtn.addEventListener("click", () => {
+  lightbox.style.display = "none";
+});
 
-    function closeLightbox() {
-      lb.classList.add('hidden');
-      document.body.style.overflow = '';
-      lbImg.src = '';
-    }
-
-    viewBtn.addEventListener('click', openLightbox);
-    img.addEventListener('click', openLightbox);
-    lbClose.addEventListener('click', closeLightbox);
-    lb.addEventListener('click', (e) => {
-      if (e.target === lb) closeLightbox();
-    });
-
-    // keyboard: Esc to close
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !lb.classList.contains('hidden')) closeLightbox();
-    });
-
-    // progressive fallback: if image fails to load, hide controls
-    img.addEventListener('error', () => {
-      document.querySelector('.showcase-card .actions').style.display = 'none';
-      document.querySelector('.hint').textContent = 'Image unavailable.';
-    });
+// Close lightbox when clicking outside the image
+lightbox.addEventListener("click", (e) => {
+  if (e.target === lightbox) {
+    lightbox.style.display = "none";
+  }
+});
   </script>
 </body>
 </html>
