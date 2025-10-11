@@ -1,0 +1,10 @@
+<section id="full-focus">
+  <h1>FULL FOCUS</h1>
+  <div class="focus-card">
+    <h2>Vee Boonyasak</h2>
+    <span class="role-label role-survivor">Survivor</span>
+    <img src="assets/Portraits/Surv/vee.png">
+    <p class="progress">Prestige <span id="vee-prestige">0</span> → Goal: <span id="vee-goal">100</span></p>
+    <p class="priority priority-high">🔥 High Priority</p>
+  </div>
+</section>
