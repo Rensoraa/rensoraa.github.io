@@ -8,14 +8,12 @@ HTML_FILE = "p100/index.html"
 POSTED_LOG = ".github/scripts/posted_images.txt"
 
 def get_posted_images():
-    """Load previously posted images from file."""
     if not os.path.exists(POSTED_LOG):
         return set()
     with open(POSTED_LOG, "r") as f:
         return set(f.read().splitlines())
 
 def save_posted_images(images):
-    """Save the set of posted images back to the file."""
     with open(POSTED_LOG, "w") as f:
         f.write("\n".join(images))
 
@@ -24,7 +22,8 @@ def main():
         print("Missing DISCORD_WEBHOOK secret.")
         return
 
-    # Load HTML
+    owner = os.getenv("GITHUB_REPOSITORY", "").split("/")[0]
+
     with open(HTML_FILE, "r", encoding="utf-8") as f:
         soup = BeautifulSoup(f, "html.parser")
 
@@ -43,20 +42,21 @@ def main():
         for img in div.find_all("img", src=True)
     ]
 
+    print(f"Found {len(imgs)} screenshot images in HTML.")
+
     for img in imgs:
         src = img["src"]
-
-        
-        if src in posted or "assets/" not in src:
-            continue
-
         alt_text = img.get("alt", "Unknown")
         title_text = img.get("title", "Unknown")
 
-        # Build GitHub Pages URL
-        image_url = f"https://{os.getenv('GITHUB_REPOSITORY_OWNER')}.github.io/p100/{quote(src.lstrip('./'))}"
-        
-        # Build embed
+        print(f"Processing image: {src} | alt: {alt_text} | title: {title_text}")
+
+        if src in posted or "assets/" not in src:
+            print(f"Skipping {src}")
+            continue
+
+        image_url = f"https://{owner}.github.io/p100/{quote(src.lstrip('./'))}"
+
         embed = {
             "embeds": [{
                 "title": f"📸 New p100 just dropped",
@@ -66,7 +66,6 @@ def main():
             }]
         }
 
-        # Post to Discord
         res = requests.post(WEBHOOK_URL, json=embed)
         if res.status_code == 204:
             print(f"Posted {src}")
@@ -74,7 +73,6 @@ def main():
         else:
             print(f"Failed to post {src}: {res.status_code} - {res.text}")
 
-    # Save updated posted images
     save_posted_images(new_posted)
 
 if __name__ == "__main__":
