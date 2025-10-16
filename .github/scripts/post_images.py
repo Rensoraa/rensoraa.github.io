@@ -1,10 +1,12 @@
 import os
 import requests
 from bs4 import BeautifulSoup
+from urllib.parse import quote
 
 WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK")
 HTML_FILE = "p100/index.html"
 POSTED_LOG = ".github/scripts/posted_images.txt"
+TARGET_CLASS = "screenshot"  # Only images with this class are posted
 
 def get_posted_images():
     if not os.path.exists(POSTED_LOG):
@@ -32,17 +34,25 @@ def main():
     posted = get_posted_images()
     new_posted = set(posted)
 
-    imgs = [img["src"] for img in body.find_all("img", src=True) if "assets/" in img["src"]]
+    # Only images with the target class
+    imgs = [img for img in body.find_all("img", src=True) 
+            if TARGET_CLASS in img.get("class", [])]
 
-    for src in imgs:
-        if src in posted:
+    for img in imgs:
+        src = img["src"]
+        if src in posted or "assets/" not in src:
             continue
 
-        image_url = f"https://{os.getenv('GITHUB_REPOSITORY_OWNER')}.github.io/p100/{src.lstrip('./')}"
+        alt_text = img.get("alt", "Unknown")
+        title_text = img.get("title", "Unknown")
+
+
+        image_url = f"https://{os.getenv('GITHUB_REPOSITORY_OWNER')}.github.io/p100/{quote(src.lstrip('./'))}"
+
         embed = {
             "embeds": [{
-                "title": "📸 New P100 Posted",
-                "description": f"Image from index.html:\n`{src}`",
+                "title": f"📸 {alt_text}",
+                "description": f"Character: {alt_text}\nUnlocked on: {title_text}\n`{src}`",
                 "image": {"url": image_url},
                 "color": 0xFF0000
             }]

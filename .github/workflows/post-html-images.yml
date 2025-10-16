@@ -4,8 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - "p100/index.html"
-      - "p100/assets/**"
+      - "p100/**"
 
 jobs:
   send-images:
@@ -14,6 +13,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true  
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -27,3 +28,11 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: python .github/scripts/post_images.py
+
+      - name: Commit posted_images.txt
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add .github/scripts/posted_images.txt
+          git commit -m "Update posted_images.txt after workflow" || echo "No changes to commit"
+          git push
