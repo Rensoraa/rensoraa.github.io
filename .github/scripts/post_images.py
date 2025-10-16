@@ -38,7 +38,7 @@ def main():
         if src in posted:
             continue
 
-        image_url = f"https://{os.getenv('GITHUB_REPOSITORY_OWNER')}.github.io/{os.getenv('GITHUB_REPOSITORY').split('/')[-1]}/{src}"
+        image_url = f"https://{os.getenv('GITHUB_REPOSITORY_OWNER')}.github.io/p100/{src.lstrip('./')}"
         embed = {
             "embeds": [{
                 "title": "📸 New P100 Posted",
