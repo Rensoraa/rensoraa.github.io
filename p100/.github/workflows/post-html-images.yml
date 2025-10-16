@@ -1,0 +1,29 @@
+name: Post New HTML Images to Discord
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "p100/index.html"
+      - "p100/assets/**"
+
+jobs:
+  send-images:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run Discord image poster
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: python .github/scripts/post_images.py
