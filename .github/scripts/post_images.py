@@ -59,7 +59,7 @@ def main():
         # Build embed
         embed = {
             "embeds": [{
-                "title": f"📸 New p100",
+                "title": f"📸 New p100 just dropped",
                 "description": f"Character: {alt_text}\n{title_text}\n`{src}`",
                 "image": {"url": image_url},
                 "color": 0xFF0000
