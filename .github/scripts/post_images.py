@@ -46,7 +46,7 @@ def main():
     for img in imgs:
         src = img["src"]
 
-        # Skip if already posted or not in /assets
+        
         if src in posted or "assets/" not in src:
             continue
 
@@ -55,12 +55,12 @@ def main():
 
         # Build GitHub Pages URL
         image_url = f"https://{os.getenv('GITHUB_REPOSITORY_OWNER')}.github.io/p100/{quote(src.lstrip('./'))}"
-
+        
         # Build embed
         embed = {
             "embeds": [{
-                "title": f"📸 {alt_text}",
-                "description": f"Character: {alt_text}\nUnlocked on: {title_text}\n`{src}`",
+                "title": f"📸 New p100",
+                "description": f"Character: {alt_text}\n{title_text}\n`{src}`",
                 "image": {"url": image_url},
                 "color": 0xFF0000
             }]
