@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <title>Non-Farmer Steam Profiles</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Collected Steam Profiles</h1>
+    <a>These people either bring no offer or play normal on cross-off</a>
+    <p class="counter" id="profileCount">0 accounts stored</p>
+
+    <div class="input-box">
+      <input type="text" id="input" placeholder="Search Steam ID or Vanity" />
+      <button id="searchBtn">Search</button>
+      <button id="resetBtn">Show All</button>
+    </div>
+
+    <div id="profilesList" class="profiles-list"></div>
+    <p id="error" class="error hidden"></p>
+  </div>
+
+  <!-- Clickable Info Button -->
+  <div class="info-button" id="infoButton">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Information_icon.svg/600px-Information_icon.svg.png?20070923101508" alt="Info">
+  </div>
+
+  <!-- Popup overlay hidden initially -->
+  <div class="popup-overlay hidden" id="popupOverlay">
+    <div class="custom-popup">
+      <p>Send Steam IDs of trolls via Discord or contact me on Steam!<br>And i'll make sure they are listed here soon.</p>
+      <button id="closePopup">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const workerUrl = "https://steam-api-proxy.itsnielsje.workers.dev";
+    const listContainer = document.getElementById("profilesList");
+    const error = document.getElementById("error");
+    const input = document.getElementById("input");
+    const searchBtn = document.getElementById("searchBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const profileCount = document.getElementById("profileCount");
+
+    let profilesData = [];
+    let allowedProfiles = [];
+
+    async function loadProfiles() {
+      try {
+        const res = await fetch("profiles.json");
+        allowedProfiles = await res.json();
+
+        for (const entry of allowedProfiles) {
+          const isNumeric = /^\d+$/.test(entry);
+          const param = isNumeric ? `steamid=${entry}` : `vanity=${entry}`;
+          try {
+            const r = await fetch(`${workerUrl}/?${param}`);
+            const data = await r.json();
+
+            if (data && data.steamid) {
+              const div = document.createElement("div");
+              div.classList.add("profile");
+              div.dataset.key = entry.toLowerCase();
+              div.innerHTML = `
+                <img src="${data.avatarfull}" alt="Avatar">
+                <div class="info">
+                  <h2>${data.personaname}</h2>
+                  <p><strong>Steam ID:</strong> ${data.steamid}</p>
+                  <a href="${data.profileurl}" target="_blank">🔗 View on Steam</a>
+                </div>
+              `;
+              profilesData.push(div);
+              listContainer.appendChild(div);
+            }
+          } catch (e) {
+            console.error("Failed to load profile:", entry);
+          }
+        }
+
+        profileCount.textContent = `${profilesData.length} accounts stored`;
+      } catch (err) {
+        console.error(err);
+        error.textContent = "Failed to load profiles.json.";
+        error.classList.remove("hidden");
+      }
+    }
+
+    function searchProfiles() {
+      const query = input.value.trim().toLowerCase();
+      listContainer.innerHTML = "";
+      if (!query) {
+        profilesData.forEach(card => listContainer.appendChild(card));
+        return;
+      }
+
+      const matched = profilesData.filter(card => card.dataset.key.includes(query));
+
+      if (matched.length === 0) {
+        error.textContent = "No profile found in the database.";
+        error.classList.remove("hidden");
+      } else {
+        error.classList.add("hidden");
+        matched.forEach(card => listContainer.appendChild(card));
+      }
+    }
+
+    function resetSearch() {
+      input.value = "";
+      listContainer.innerHTML = "";
+      profilesData.forEach(card => listContainer.appendChild(card));
+      error.classList.add("hidden");
+    }
+
+    searchBtn.addEventListener("click", searchProfiles);
+    resetBtn.addEventListener("click", resetSearch);
+
+    loadProfiles();
+
+    // Info popup functionality
+    const infoButton = document.getElementById("infoButton");
+    const popupOverlay = document.getElementById("popupOverlay");
+    const closePopup = document.getElementById("closePopup");
+
+    infoButton.addEventListener("click", () => {
+      popupOverlay.classList.remove("hidden");
+    });
+
+    closePopup.addEventListener("click", () => {
+      popupOverlay.classList.add("hidden");
+    });
+
+    popupOverlay.addEventListener("click", (e) => {
+      if (e.target === popupOverlay) {
+        popupOverlay.classList.add("hidden");
+      }
+    });
+  </script>
+</body>
+</html>
