@@ -26,7 +26,6 @@ h1 {
   color: #4aa8ff;
 }
 
-/* Account counter */
 .counter {
   color: #4aa8ff;
   font-weight: bold;
@@ -77,7 +76,7 @@ h1 {
   background: #2a2f39;
 }
 
-/* Profiles grid */
+/* Profile cards */
 .profiles-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -86,7 +85,6 @@ h1 {
   margin-top: 20px;
 }
 
-/* Profile card styling */
 .profile {
   background: #1f1f1f;
   border: 2px solid #4aa8ff;
@@ -124,6 +122,7 @@ h1 {
   color: #c8d6e5;
   margin: 3px 0;
   font-size: 0.9em;
+  word-break: break-word;
 }
 
 .profile a {
@@ -137,18 +136,20 @@ h1 {
   text-decoration: underline;
 }
 
-/* Error message */
+/* Clickable reason */
+.clickable-reason {
+  color: #66c0ff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Error */
 .error {
   color: #ff6b6b;
   margin-top: 15px;
 }
 
-/* Hidden utility */
-.hidden {
-  display: none;
-}
-
-/* Info button round */
+/* Info button */
 .info-button {
   position: fixed;
   bottom: 20px;
@@ -172,13 +173,9 @@ h1 {
   pointer-events: none;
 }
 
-/* Popup overlay hidden initially */
-.popup-overlay.hidden {
-  display: none;
-}
-
-/* Blur overlay for popup */
-.popup-overlay {
+/* Popups */
+.popup-overlay,
+.submission-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -192,8 +189,13 @@ h1 {
   z-index: 1000;
 }
 
-/* Custom popup bigger */
-.custom-popup {
+.popup-overlay.hidden,
+.submission-overlay.hidden {
+  display: none;
+}
+
+.custom-popup,
+.submission-popup {
   background-color: #1f1f1f;
   color: #eaeaea;
   border: 2px solid #4aa8ff;
@@ -206,22 +208,84 @@ h1 {
   z-index: 1001;
 }
 
-.custom-popup p {
+.custom-popup p,
+.submission-popup p {
   margin: 0 0 15px 0;
   font-size: 16px;
   line-height: 1.5;
 }
 
-.custom-popup button {
+/* Popup buttons */
+.custom-popup button,
+.submission-popup button {
   padding: 8px 16px;
   border: 2px solid #4aa8ff;
   background: #1f1f1f;
   color: #eaeaea;
   border-radius: 6px;
   cursor: pointer;
+  margin-top: 10px;
 }
 
-.custom-popup button:hover {
+.custom-popup button:hover,
+.submission-popup button:hover {
   background: #2a2f39;
   border-color: #66c0ff;
+}
+
+/* Submission inputs */
+.submission-popup input,
+.submission-popup textarea {
+  width: 90%;
+  margin: 8px 0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 2px solid #4aa8ff;
+  background: #1f1f1f;
+  color: #eaeaea;
+  outline: none;
+}
+
+.submission-popup input:focus,
+.submission-popup textarea:focus {
+  border-color: #66c0ff;
+}
+
+/* Submit button on page */
+.submit-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 2px solid #4aa8ff;
+  background: #1f1f1f;
+  color: #eaeaea;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(74, 168, 255, 0.4);
+  transition: 0.2s;
+}
+
+.submit-button:hover {
+  background: #2a2f39;
+  border-color: #66c0ff;
+}
+
+/* Custom alert box */
+.custom-alert {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1f1f1f;
+  color: #eaeaea;
+  border: 2px solid #4aa8ff;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(74, 168, 255, 0.6);
+  z-index: 2000;
+  display: none;
+  font-weight: bold;
 }
