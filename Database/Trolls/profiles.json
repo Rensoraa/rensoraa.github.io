@@ -1,5 +1,15 @@
+
 [
-  "76561198910127536",
-  "76561198144303231",
-  "76561199221328844"
+  {
+    "id": "76561198910127536",
+    "reason": "Leaves games early No hooks"
+  },
+  {
+    "id": "76561198144303231",
+    "reason": "Griefs teammates and sabotages gens"
+  },
+  {
+    "id": "76561199221328844",
+    "reason": "Brought event offer //Account will be removed after event"
+  }
 ]

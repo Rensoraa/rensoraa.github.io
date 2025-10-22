@@ -31,8 +31,16 @@
   <!-- Popup overlay -->
   <div class="popup-overlay hidden" id="popupOverlay">
     <div class="custom-popup">
-      <p>Send Steam IDs of trolls via Discord or contact me on Steam!<br>And i'll make sure they are listed here soon.</p>
+      <p>Send Steam IDs of trolls via Discord or contact me on Steam!<br>And I'll make sure they are listed here soon.</p>
       <button id="closePopup">Close</button>
+    </div>
+  </div>
+
+  <!-- Reason popup overlay -->
+  <div class="popup-overlay hidden" id="reasonOverlay">
+    <div class="custom-popup">
+      <p id="reasonText"></p>
+      <button id="closeReason">Close</button>
     </div>
   </div>
 
@@ -54,8 +62,12 @@
         allowedProfiles = await res.json();
 
         for (const entry of allowedProfiles) {
-          const isNumeric = /^\d+$/.test(entry);
-          const param = isNumeric ? `steamid=${entry}` : `vanity=${entry}`;
+          // Support both array of strings and array of objects with reason
+          const idOrVanity = typeof entry === "string" ? entry : entry.id;
+          const reason = typeof entry === "object" && entry.reason ? entry.reason : "No reason provided";
+
+          const isNumeric = /^\d+$/.test(idOrVanity);
+          const param = isNumeric ? `steamid=${idOrVanity}` : `vanity=${idOrVanity}`;
           try {
             const r = await fetch(`${workerUrl}/?${param}`);
             const data = await r.json();
@@ -63,12 +75,21 @@
             if (data && data.steamid) {
               const div = document.createElement("div");
               div.classList.add("profile");
-              div.dataset.key = entry.toLowerCase();
+              div.dataset.key = idOrVanity.toLowerCase();
+
+              let reasonHTML;
+              if (reason.length > 60) {
+                reasonHTML = `<span class="clickable-reason" data-reason="${reason}">Reason: Click here</span>`;
+              } else {
+                reasonHTML = `Reason: ${reason}`;
+              }
+
               div.innerHTML = `
                 <img src="${data.avatarfull}" alt="Avatar">
                 <div class="info">
                   <h2>${data.personaname}</h2>
                   <p><strong>Steam ID:</strong> ${data.steamid}</p>
+                  <p><strong>${reasonHTML}</strong></p>
                   <a href="${data.profileurl}" target="_blank">🔗 View on Steam</a>
                 </div>
               `;
@@ -76,7 +97,7 @@
               listContainer.appendChild(div);
             }
           } catch (e) {
-            console.error("Failed to load profile:", entry);
+            console.error("Failed to load profile:", idOrVanity);
           }
         }
 
@@ -119,6 +140,7 @@
 
     loadProfiles();
 
+    // Info popup
     const infoButton = document.getElementById("infoButton");
     const popupOverlay = document.getElementById("popupOverlay");
     const closePopup = document.getElementById("closePopup");
@@ -134,6 +156,29 @@
     popupOverlay.addEventListener("click", (e) => {
       if (e.target === popupOverlay) {
         popupOverlay.classList.add("hidden");
+      }
+    });
+
+    // Reason popup
+    const reasonOverlay = document.getElementById("reasonOverlay");
+    const reasonText = document.getElementById("reasonText");
+    const closeReason = document.getElementById("closeReason");
+
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("clickable-reason")) {
+        // Replace \n with <br> for proper line breaks
+        reasonText.innerHTML = e.target.dataset.reason.replace(/\n/g, "<br>");
+        reasonOverlay.classList.remove("hidden");
+      }
+    });
+
+    closeReason.addEventListener("click", () => {
+      reasonOverlay.classList.add("hidden");
+    });
+
+    reasonOverlay.addEventListener("click", (e) => {
+      if (e.target === reasonOverlay) {
+        reasonOverlay.classList.add("hidden");
       }
     });
   </script>
