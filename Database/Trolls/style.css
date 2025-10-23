@@ -289,3 +289,40 @@ h1 {
   display: none;
   font-weight: bold;
 }
+#languageSelect {
+  appearance: none;
+  background-color: #111;
+  color: #fff;
+  border: 1px solid #4aa8ff;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s ease-in-out;
+  position: fixed;      /* Makes it float */
+  top: 20px;            /* Distance from top */
+  left: 20px;           /* Distance from left */
+  z-index: 999;         /* Ensure it’s above other content */
+  box-shadow: 0 0 15px rgba(74, 168, 255, 0.6);
+  text-align: center;   /* Center the text */
+}
+
+#languageSelect:hover {
+  background-color: #1a1a1a;
+  border-color: #4aa8ff;
+}
+
+#languageSelect:focus {
+  border-color: #4aa8ff;
+  box-shadow: 0 0 15px rgba(74, 168, 255, 0.6);
+}
+
+#languageSelect option {
+  background-color: #111;
+  color: #fff;
+  text-align: center;   /* Center the option text too */
+}
+

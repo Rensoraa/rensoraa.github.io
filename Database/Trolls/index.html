@@ -6,14 +6,12 @@
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <title>Non-Farmer Steam Profiles</title>
 <link rel="stylesheet" href="style.css" />
-<!-- Open Graph / Facebook / Discord -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Non-Farmer Steam Profiles">
 <meta property="og:description" content="A curated list of Steam profiles that are non-farmers or griefers on cross-off. Check profiles, reasons, and more.">
 <meta property="og:image" content="https://rensoraa.github.io/Database/Trolls/assets/Metadata.png">
 <meta property="og:url" content="https://rensoraa.github.io">
 <meta name="theme-color" content="#4aa8ff">
-<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Non-Farmer Steam Profiles">
 <meta name="twitter:description" content="A curated list of Steam profiles that are non-farmers or griefers on cross-off. Check profiles, reasons, and more.">
@@ -24,24 +22,29 @@
 </head>
 <body>
 <div class="container">
-  <h1>Collected Steam Profiles</h1>
-  <a>These people either bring no offer or play normal/Grief others on cross-off</a>
+  <h1 id="title">Collected Steam Profiles</h1>
+  <a id="subtitle">These people either bring no offer or play normal/Grief others on cross-off</a>
   <p class="counter" id="profileCount">0 accounts stored</p>
 
   <div class="input-box">
     <input type="text" id="input" placeholder="Search Steam ID or Vanity" />
     <button id="searchBtn">Search</button>
     <button id="resetBtn">Show All</button>
+    <select id="languageSelect">
+      <option value="en">English</option>
+      <option value="nl">Nederlands</option>
+      <option value="de">Deutsch</option>
+      <option value="zh">中文</option>
+      <option value="ru">Русский</option>
+    </select>
   </div>
 
   <div id="profilesList" class="profiles-list"></div>
   <p id="error" class="error hidden"></p>
 </div>
 
-<!-- Submit Button -->
 <button class="submit-button" id="submitBtn">Submit ID</button>
 
-<!-- Info popup -->
 <div class="popup-overlay hidden" id="popupOverlay">
   <div class="custom-popup">
     <p>Send Steam IDs of trolls via Discord or contact me on Steam!<br>And I'll make sure they are listed here soon.</p>
@@ -49,7 +52,6 @@
   </div>
 </div>
 
-<!-- Reason popup -->
 <div class="popup-overlay hidden" id="reasonOverlay">
   <div class="custom-popup">
     <p id="reasonText"></p>
@@ -57,10 +59,9 @@
   </div>
 </div>
 
-<!-- Submission popup -->
 <div class="submission-overlay hidden" id="submissionOverlay">
   <div class="submission-popup">
-    <h2>Submit a Steam ID</h2>
+    <h2 id="submitTitle">Submit a Steam ID / Profile</h2>
     <input type="text" id="steamIdInput" placeholder="Steam ID or Steam Profile Link" />
     <textarea id="reasonInput" rows="4" placeholder="Reason for submission"></textarea>
     <button id="submitFormBtn">Submit</button>
@@ -68,7 +69,6 @@
   </div>
 </div>
 
-<!-- Custom alert -->
 <div class="custom-alert" id="customAlert"></div>
 
 <script>
@@ -82,8 +82,43 @@ const profileCount = document.getElementById("profileCount");
 
 let profilesData = [];
 let allowedProfiles = [];
+let currentLang = localStorage.getItem("lang") || "en";
+let lang = {};
 
-// Load profiles
+// === LANGUAGE SYSTEM ===
+const languageSelect = document.getElementById("languageSelect");
+
+async function loadLanguage(code) {
+  try {
+    const res = await fetch(`lang/${code}.json`);
+    lang = await res.json();
+
+    document.getElementById("title").textContent = lang.title;
+    document.getElementById("subtitle").textContent = lang.subtitle;
+    searchBtn.textContent = lang.search;
+    resetBtn.textContent = lang.show_all;
+    document.getElementById("submitBtn").textContent = lang.submit_id;
+    document.getElementById("submitTitle").textContent = lang.submit_title;
+    document.getElementById("reasonInput").placeholder = lang.submit_reason_placeholder;
+
+    // Refresh profile cards to apply new language
+    refreshProfileCards();
+  } catch (e) {
+    console.warn("Failed to load language file:", code);
+  }
+}
+
+languageSelect.addEventListener("change", () => {
+  const selected = languageSelect.value;
+  localStorage.setItem("lang", selected);
+  currentLang = selected;
+  loadLanguage(selected);
+});
+
+languageSelect.value = currentLang;
+loadLanguage(currentLang);
+
+// === PROFILE LOADING ===
 async function loadProfiles() {
   try {
     const res = await fetch("profiles.json");
@@ -103,32 +138,20 @@ async function loadProfiles() {
           const div = document.createElement("div");
           div.classList.add("profile");
           div.dataset.key = idOrVanity.toLowerCase();
+          div.dataset.reason = reason;
+          div.dataset.steamid = data.steamid;
+          div.dataset.personaname = data.personaname;
+          div.dataset.avatar = data.avatarfull;
+          div.dataset.profileurl = data.profileurl;
 
-          let reasonHTML;
-          if (reason.length > 60) {
-            reasonHTML = `<span class="clickable-reason" data-reason="${reason}">Reason: Click here</span>`;
-          } else {
-            reasonHTML = `Reason: ${reason}`;
-          }
-
-          div.innerHTML = `
-            <img src="${data.avatarfull}" alt="Avatar">
-            <div class="info">
-              <h2>${data.personaname}</h2>
-              <p><strong>Steam ID:</strong> ${data.steamid}</p>
-              <p><strong>${reasonHTML}</strong></p>
-              <a href="${data.profileurl}" target="_blank">🔗 View on Steam</a>
-            </div>
-          `;
           profilesData.push(div);
-          listContainer.appendChild(div);
         }
       } catch (e) {
         console.error("Failed to load profile:", idOrVanity);
       }
     }
 
-    profileCount.textContent = `${profilesData.length} accounts stored`;
+    refreshProfileCards();
   } catch (err) {
     console.error(err);
     error.textContent = "Failed to load profiles.json.";
@@ -136,17 +159,41 @@ async function loadProfiles() {
   }
 }
 
-// Search & reset
+// === REFRESH PROFILE CARDS ===
+function refreshProfileCards() {
+  listContainer.innerHTML = "";
+  profilesData.forEach(div => {
+    let reasonHTML;
+    if (div.dataset.reason.length > 60) {
+      reasonHTML = `<span class="clickable-reason" data-reason="${div.dataset.reason}">${lang.reason_click || "Reason: Click here"}</span>`;
+    } else {
+      reasonHTML = `${lang.reason_label || "Reason"}: ${div.dataset.reason}`;
+    }
+
+    div.innerHTML = `
+      <img src="${div.dataset.avatar}" alt="Avatar">
+      <div class="info">
+        <h2>${div.dataset.personaname}</h2>
+        <p><strong>Steam ID:</strong> ${div.dataset.steamid}</p>
+        <p><strong>${reasonHTML}</strong></p>
+        <a href="${div.dataset.profileurl}" target="_blank">🔗 ${lang.view_on_steam || "View on Steam"}</a>
+      </div>
+    `;
+    listContainer.appendChild(div);
+  });
+  profileCount.textContent = `${profilesData.length} accounts stored`;
+}
+
+// === SEARCH ===
 function searchProfiles() {
   const query = input.value.trim().toLowerCase();
   listContainer.innerHTML = "";
   if (!query) {
-    profilesData.forEach(card => listContainer.appendChild(card));
+    refreshProfileCards();
     return;
   }
 
   const matched = profilesData.filter(card => card.dataset.key.includes(query));
-
   if (matched.length === 0) {
     error.textContent = "No profile found in the database.";
     error.classList.remove("hidden");
@@ -158,8 +205,7 @@ function searchProfiles() {
 
 function resetSearch() {
   input.value = "";
-  listContainer.innerHTML = "";
-  profilesData.forEach(card => listContainer.appendChild(card));
+  refreshProfileCards();
   error.classList.add("hidden");
 }
 
@@ -167,31 +213,22 @@ searchBtn.addEventListener("click", searchProfiles);
 resetBtn.addEventListener("click", resetSearch);
 loadProfiles();
 
-// Info popup
-const infoButton = document.getElementById("infoButton");
-const popupOverlay = document.getElementById("popupOverlay");
-const closePopup = document.getElementById("closePopup");
-
-infoButton?.addEventListener("click", () => popupOverlay.classList.remove("hidden"));
-closePopup?.addEventListener("click", () => popupOverlay.classList.add("hidden"));
-popupOverlay?.addEventListener("click", e => { if(e.target === popupOverlay) popupOverlay.classList.add("hidden"); });
-
-// Reason popup
+// === REASON POPUP ===
 const reasonOverlay = document.getElementById("reasonOverlay");
 const reasonText = document.getElementById("reasonText");
 const closeReason = document.getElementById("closeReason");
 
 document.addEventListener("click", (e) => {
-  if(e.target.classList.contains("clickable-reason")) {
+  if (e.target.classList.contains("clickable-reason")) {
     reasonText.innerHTML = e.target.dataset.reason.replace(/\n/g, "<br>");
     reasonOverlay.classList.remove("hidden");
   }
 });
 
 closeReason.addEventListener("click", () => reasonOverlay.classList.add("hidden"));
-reasonOverlay.addEventListener("click", e => { if(e.target === reasonOverlay) reasonOverlay.classList.add("hidden"); });
+reasonOverlay.addEventListener("click", e => { if (e.target === reasonOverlay) reasonOverlay.classList.add("hidden"); });
 
-// Submission popup
+// === SUBMISSION ===
 const submitBtn = document.getElementById("submitBtn");
 const submissionOverlay = document.getElementById("submissionOverlay");
 const closeSubmission = document.getElementById("closeSubmission");
@@ -202,34 +239,38 @@ const customAlert = document.getElementById("customAlert");
 
 submitBtn.addEventListener("click", () => submissionOverlay.classList.remove("hidden"));
 closeSubmission.addEventListener("click", () => submissionOverlay.classList.add("hidden"));
-submissionOverlay.addEventListener("click", e => { if(e.target === submissionOverlay) submissionOverlay.classList.add("hidden"); });
+submissionOverlay.addEventListener("click", e => { if (e.target === submissionOverlay) submissionOverlay.classList.add("hidden"); });
 
-function showAlert(msg, duration=3000) {
+function showAlert(msg, duration = 3000) {
   customAlert.textContent = msg;
   customAlert.style.display = "block";
   setTimeout(() => { customAlert.style.display = "none"; }, duration);
 }
 
-// Submit form to Discord webhook with embed
 submitFormBtn.addEventListener("click", async () => {
   const steamId = steamIdInput.value.trim();
   const reason = reasonInput.value.trim();
-
-  if(!steamId || !reason) {
-    showAlert("Please fill in both Steam ID/Link and Reason");
+  if (!steamId || !reason) {
+    showAlert(lang.submit_fail || "Please fill in both Steam ID/Link and Reason");
     return;
   }
 
-  const webhookUrl = "https://discord.com/api/webhooks/1430636173612552265/A1aQbkqlBuRctnCjG54LvtrP1ldQFCV7x8S2BMc6Vidrl1QK8rw7Re-WK1lWj9Tcq1gj";
+  let displayValue = steamId;
+  const vanityMatch = steamId.match(/steamcommunity\.com\/id\/([^/]+)/);
+  const idMatch = steamId.match(/(\d{17})/);
 
+  if (vanityMatch) displayValue = `[${vanityMatch[1]}](${steamId})`;
+  else if (idMatch) displayValue = `Steam ID: ${idMatch[1]}`;
+
+  const webhookUrl = "https://discord.com/api/webhooks/1430636173612552265/A1aQbkqlBuRctnCjG54LvtrP1ldQFCV7x8S2BMc6Vidrl1QK8rw7Re-WK1lWj9Tcq1gj";
   const payload = {
     content: "<@929521121475313804>",
     embeds: [{
       title: "New Steam ID Submission",
-      color: 0x005f9e, // Marine Blue
+      color: 0x005f9e,
       fields: [
-        { name: "Steam ID / Profile", value: steamId, inline: false },
-        { name: "Reason", value: reason.replace(/\n/g, "\n"), inline: false }
+        { name: "Steam ID / Profile", value: displayValue, inline: false },
+        { name: "Reason", value: reason, inline: false }
       ],
       timestamp: new Date().toISOString()
     }]
@@ -242,17 +283,15 @@ submitFormBtn.addEventListener("click", async () => {
       body: JSON.stringify(payload)
     });
 
-    if(res.ok) {
-      showAlert("Submission sent successfully!");
+    if (res.ok) {
+      showAlert(lang.submit_success || "Submission sent successfully!");
       steamIdInput.value = "";
       reasonInput.value = "";
       submissionOverlay.classList.add("hidden");
-    } else {
-      showAlert("Failed to send submission.");
-    }
-  } catch(err) {
+    } else showAlert(lang.submit_fail || "Failed to send submission.");
+  } catch (err) {
     console.error(err);
-    showAlert("Error sending submission.");
+    showAlert(lang.submit_fail || "Error sending submission.");
   }
 });
 </script>
