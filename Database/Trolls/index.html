@@ -54,6 +54,7 @@
 </div>
 
 <button class="submit-button" id="submitBtn">Submit ID</button>
+<button id="aboutButton" class="about-btn">About</button>
 
 <div class="popup-overlay hidden" id="reasonOverlay">
   <div class="custom-popup">
@@ -346,6 +347,11 @@ submitFormBtn.addEventListener("click", async () => {
     showAlert(lang.submit_fail || "Error sending submission.");
   }
 });
+</script>
+<script>
+  document.getElementById("aboutButton").addEventListener("click", () => {
+    window.location.href = "about.html";
+  });
 </script>
 </body>
 </html>

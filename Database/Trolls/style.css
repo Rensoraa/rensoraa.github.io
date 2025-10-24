@@ -360,3 +360,27 @@ h1 {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+.about-btn {
+  position: fixed;   /* allows you to place it anywhere */
+  bottom: 65px;
+  right: 20px;
+  background-color: #66c0f4;
+  color: #fff;
+  border: none;
+  padding: 10px 30px;
+  cursor: pointer;
+  z-index: 1000;
+  border-radius: 8px;
+  border: 2px solid #4aa8ff;
+  background: #1f1f1f;
+  font-weight: bold;
+}
+
+
+.about-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(102, 192, 244, 0.6);
+  background: #2a2f39;
+  border-color: #66c0ff;
+}
+
