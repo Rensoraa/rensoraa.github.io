@@ -10,5 +10,6 @@
   "submit_reason_placeholder": "Gönderim nedeni",
   "submit_success": "Gönderim başarıyla iletildi!",
   "submit_fail": "Gönderim başarısız oldu.",
-  "view_on_steam": "Steam'de Görüntüle"
+  "view_on_steam": "Steam'de Görüntüle",
+  "about": "Hakkında"
 }

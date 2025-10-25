@@ -10,5 +10,7 @@
   "submit_reason_placeholder": "Причина отправки",
   "submit_success": "Отправка успешно выполнена!",
   "submit_fail": "Не удалось отправить.",
-  "view_on_steam": "Посмотреть в Steam"
+  "view_on_steam": "Посмотреть в Steam",
+  "about": "об"
+
 }

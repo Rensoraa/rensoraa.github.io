@@ -10,5 +10,6 @@
   "submit_reason_placeholder": "Grund for indsendelse",
   "submit_success": "Indsendelse sendt uden problemer!",
   "submit_fail": "Indsendelse fejlet.",
-  "view_on_steam": "Se på Steam"
+  "view_on_steam": "Se på Steam",
+  "about": "Om"
 }

@@ -10,5 +10,6 @@
   "submit_reason_placeholder": "Razón de la petición",
   "submit_success": "¡Petición enviada con éxito!",
   "submit_fail": "Error al enviar la petición.",
-  "view_on_steam": "Ver en Steam"
+  "view_on_steam": "Ver en Steam",
+  "about": "Acerca de"
 }

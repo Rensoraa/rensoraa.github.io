@@ -10,5 +10,6 @@
   "submit_reason_placeholder": "Raison de la soumission",
   "submit_success": "Soumission envoyée avec succès !",
   "submit_fail": "Échec de l'envoi de la soumission.",
-  "view_on_steam": "Voir sur Steam"
+  "view_on_steam": "Voir sur Steam",
+  "about": "À propos"
 }

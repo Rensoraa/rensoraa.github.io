@@ -10,5 +10,6 @@
   "submit_reason_placeholder": "Reden voor inzending",
   "submit_success": "Inzending succesvol verzonden!",
   "submit_fail": "Inzending mislukt.",
-  "view_on_steam": "Bekijk op Steam"
+  "view_on_steam": "Bekijk op Steam",
+  "about": "Over"
 }

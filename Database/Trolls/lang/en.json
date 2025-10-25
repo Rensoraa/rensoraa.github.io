@@ -10,5 +10,6 @@
   "submit_reason_placeholder": "Reason for submission",
   "submit_success": "Submission sent successfully!",
   "submit_fail": "Failed to send submission.",
-  "view_on_steam": "View on Steam"
+  "view_on_steam": "View on Steam",
+  "about": "About"
 }

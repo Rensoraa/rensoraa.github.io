@@ -10,5 +10,6 @@
   "submit_reason_placeholder": "提交原因",
   "submit_success": "提交成功！",
   "submit_fail": "提交失败。",
-  "view_on_steam": "在Steam上查看"
+  "view_on_steam": "在Steam上查看",
+  "about": "关于"
 }

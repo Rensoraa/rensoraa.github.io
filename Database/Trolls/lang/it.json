@@ -10,5 +10,6 @@
   "submit_reason_placeholder": "Motivo dell'invio",
   "submit_success": "Invio riuscito con successo!",
   "submit_fail": "Invio non riuscito.",
-  "view_on_steam": "Vedi su Steam"
+  "view_on_steam": "Vedi su Steam",
+  "about": "Informazioni"
 }
