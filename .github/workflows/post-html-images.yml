@@ -11,19 +11,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout repo
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
           persist-credentials: true  
 
+      # 2️⃣ Setup Python
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: pip install requests beautifulsoup4
 
+      # 4️⃣ Run the Discord image poster
       - name: Run Discord image poster
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
