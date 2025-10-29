@@ -1,4 +1,3 @@
-
 [
   {
     "id": "76561198910127536",
@@ -28,36 +27,40 @@
     "id": "76561199729325643",
     "reason": "No offering"
   },
- {
+  {
     "id": "76561199875649486",
     "reason": "No offering"
- },
- {
+  },
+  {
     "id": "76561198430935476",
     "reason": "Griefs teammates and killer."
- },
- {
+  },
+  {
     "id": "76561198432179844",
     "reason": "No offering // Planned on playing normal"
- },
-  {
-      "id": "76561198822830636",
-      "reason": "No offering // Planned on playing normal"
   },
   {
-      "id": "76561198810406219",
-      "reason": "No offering // Planned on playing normal"
+    "id": "76561198822830636",
+    "reason": "No offering // Planned on playing normal"
   },
   {
-      "id": "76561198918669019",
-      "reason": "No offering // Planned on playing normal"
+    "id": "76561198810406219",
+    "reason": "No offering // Planned on playing normal"
   },
   {
-      "id": "76561199482450746",
-      "reason": "No offering"
+    "id": "76561198918669019",
+    "reason": "No offering // Planned on playing normal"
   },
   {
-      "id": "76561199006521466",
-      "reason": "Leaves games early No hooks"
+    "id": "76561199482450746",
+    "reason": "No offering"
+  },
+  {
+    "id": "76561199006521466",
+    "reason": "Leaves games early No hooks"
+  },
+  {
+    "id": "76561199222466289",
+    "reason": "test"
   }
 ]
