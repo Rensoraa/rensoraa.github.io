@@ -56,12 +56,13 @@ def main():
         # Build GitHub Pages URL
         image_url = f"https://{os.getenv('GITHUB_REPOSITORY_OWNER')}.github.io/p100/{quote(src.lstrip('./'))}"
         
+        print(f"Posting embed with image: {image_url}")
         # Build embed
         embed = {
             "embeds": [{
                 "title": f"📸 New p100 just dropped",
                 "description": f"Character: {alt_text}\n{title_text}\n`{src}`",
-                "image": {"url": image_url},
+                "image": {"url": f"{image_url}?v={os.urandom(4).hex()}"},
                 "color": 0xFF0000
             }]
         }
