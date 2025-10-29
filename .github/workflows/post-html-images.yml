@@ -24,9 +24,6 @@ jobs:
       - name: Install dependencies
         run: pip install requests beautifulsoup4
 
-      - name: Wait for GitHub Pages deployment
-        run: sleep 15
-
       - name: Run Discord image poster
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
