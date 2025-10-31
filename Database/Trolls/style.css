@@ -383,4 +383,170 @@ h1 {
   background: #2a2f39;
   border-color: #66c0ff;
 }
+/* Appeal Button */
+.appeal-btn {
+  position: fixed; /* change to fixed if you want it to stay on scroll */
+  top: 580px; /* adjust position freely */
+  right: 1240px;
+
+  background-color: #1b2838;
+  color: #c7d5e0;
+  border: 2px solid #66c0f4;
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(102, 192, 244, 0.3);
+}
+
+.appeal-btn:hover {
+  background-color: #66c0f4;
+  color: #0b0b0b;
+  box-shadow: 0 0 20px rgba(102, 192, 244, 0.7);
+  transform: scale(1.05);
+}
+/* Appeal modal styles - add to style.css */
+.appeal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(5,8,12,0.6);
+  z-index: 20000;
+  padding: 20px;
+}
+
+.appeal-overlay.hidden { display: none; }
+
+.appeal-modal {
+  width: 100%;
+  max-width: 520px;
+  background: #111417;
+  border: 2px solid #2a6fa8;
+  border-radius: 12px;
+  padding: 18px;
+  color: #dfe8ef;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  position: relative;
+  font-family: inherit;
+}
+
+.appeal-modal h2 {
+  color: #66c0f4;
+  margin: 0 0 10px 0;
+  font-size: 1.4rem;
+}
+
+.appeal-close {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background: transparent;
+  border: none;
+  color: #9fbad8;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.appeal-step { margin-top: 8px; }
+
+.appeal-step.hidden { display: none; }
+
+.appeal-modal label {
+  display: block;
+  margin: 8px 0 6px;
+  color: #b9d7ee;
+  font-size: 0.9rem;
+}
+
+.appeal-modal input[type="text"], .appeal-modal textarea {
+  width: 100%;
+  background: #0f1416;
+  border: 1px solid rgba(102,192,244,0.12);
+  border-radius: 8px;
+  padding: 10px;
+  color: #e7f3fb;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.appeal-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(102,192,244,0.12);
+  background: #1c2327;
+  color: #dfe8ef;
+  cursor: pointer;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.btn.primary {
+  background: linear-gradient(90deg,#66c0f4,#2a6fa8);
+  color: #061018;
+  border: none;
+  box-shadow: 0 6px 18px rgba(42,111,168,0.18);
+}
+
+.appeal-help {
+  margin-top: 8px;
+  color: #9fbad8;
+  font-size: 0.9rem;
+}
+
+.appeal-found {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.appeal-found img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid #66c0f4;
+  object-fit: cover;
+  background: #0b0f11;
+}
+
+.appeal-found .name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #eaf6ff;
+}
+
+.appeal-found .small {
+  font-size: 0.85rem;
+  color: #9fbad8;
+  margin-top: 4px;
+}
+
+.orig-reason {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: #cfe7f8;
+  max-height: 80px;
+  overflow: auto;
+}
+
+/* Responsive tweak */
+@media (max-width: 480px) {
+  .appeal-modal { padding: 14px; max-width: 92%; }
+  .appeal-found img { width: 56px; height: 56px; }
+  .btn { padding: 8px 10px; }
+}
 

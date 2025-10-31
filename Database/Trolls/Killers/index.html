@@ -150,7 +150,7 @@ async function loadProfiles() {
   }, 1500);
 
   try {
-    const res = await fetch("profiles.json");
+    const res = await fetch("killers.json");
     allowedProfiles = await res.json();
 
     for (const entry of allowedProfiles) {

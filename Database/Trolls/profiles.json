@@ -1,66 +1,82 @@
 [
   {
     "id": "76561198910127536",
-    "reason": "Leaves games early No hooks"
+    "reason": "Leaves games early No hooks",
+    "zaak": "#1"
   },
   {
     "id": "76561198144303231",
-    "reason": "Griefs teammates and sabotages gens"
+    "reason": "Griefs teammates and sabotages gens",
+    "zaak": "#2"
   },
   {
     "id": "76561199221328844",
-    "reason": "Brought event offer //Account will be removed after event"
+    "reason": "Brought event offer //Account will be removed after event",
+    "zaak": "#3"
   },
   {
     "id": "76561199319682071",
-    "reason": "Leaves games early No hooks"
+    "reason": "Leaves games early No hooks",
+    "zaak": "#4"
   },
   {
     "id": "76561199507853280",
-    "reason": "Event offer, Played for real"
+    "reason": "Event offer, Played for real",
+    "zaak": "#5"
   },
   {
     "id": "76561199171262032",
-    "reason": "Leaves games early No hooks"
+    "reason": "Leaves games early No hooks",
+    "zaak": "#6"
   },
   {
     "id": "76561199729325643",
-    "reason": "No offering"
+    "reason": "No offering",
+    "zaak": "#7"
   },
   {
     "id": "76561199875649486",
-    "reason": "No offering"
+    "reason": "No offering",
+    "zaak": "#8"
   },
   {
     "id": "76561198430935476",
-    "reason": "Griefs teammates and killer."
+    "reason": "Griefs teammates and killer.",
+    "zaak": "#9"
   },
   {
     "id": "76561198432179844",
-    "reason": "No offering // Planned on playing normal"
+    "reason": "No offering // Planned on playing normal",
+    "zaak": "#10"
   },
   {
     "id": "76561198822830636",
-    "reason": "No offering // Planned on playing normal"
+    "reason": "No offering // Planned on playing normal",
+    "zaak": "#11"
   },
   {
     "id": "76561198810406219",
-    "reason": "No offering // Planned on playing normal"
+    "reason": "No offering // Planned on playing normal",
+    "zaak": "#12"
   },
   {
     "id": "76561198918669019",
-    "reason": "No offering // Planned on playing normal"
+    "reason": "No offering // Planned on playing normal",
+    "zaak": "#13"
   },
   {
     "id": "76561199482450746",
-    "reason": "No offering"
+    "reason": "No offering",
+    "zaak": "#14"
   },
   {
     "id": "76561199006521466",
-    "reason": "Leaves games early No hooks"
+    "reason": "Leaves games early No hooks",
+    "zaak": "#15"
   },
   {
     "id": "76561199119174367",
-    "reason": "event offer"
+    "reason": "event offer",
+    "zaak": "16"
   }
 ]
