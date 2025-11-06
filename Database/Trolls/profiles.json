@@ -10,19 +10,9 @@
     "case": "#2"
   },
   {
-    "id": "76561199221328844",
-    "reason": "Brought event offer //Account will be removed after event",
-    "case": "#3"
-  },
-  {
     "id": "76561199319682071",
     "reason": "Leaves games early No hooks",
     "case": "#4"
-  },
-  {
-    "id": "76561199507853280",
-    "reason": "Event offer, Played for real",
-    "case": "#5"
   },
   {
     "id": "76561199171262032",
@@ -75,37 +65,28 @@
     "case": "#15"
   },
   {
-    "id": "76561199119174367",
-    "reason": "event offer",
-    "case": "#16"
-  },
-  {
     "id": "76561198449940624",
-    "reason": "Leaves games early No hooks // Leaves stuns once hes done // Leaves gen to go do the gen with the other 2 // Kill if you get the chance",
+    "reason": "Leaves games early No hooks // Leaves stuns once hes done // Leaves gen to go do the gen with the other 2",
     "case": "#18"
   },
   {
-    "id": "76561199131043161",
-    "reason": "even offfer"
-  },
-  {
     "id": "76561198972942359",
-    "reason": "griefs innocent players"
-  },
-  {
-    "id": "76561199806169706",
-    "reason": "event offer"
+    "reason": "Griefs innocent players",
+    "case": "#19"
   },
   {
     "id": "76561199744563683",
-    "reason": "ledt with no hooks"
+    "reason": "Left with no hooks",
+    "case": "#20"
   },
   {
     "id": "76561198780536794",
-    "reason": "no cake"
+    "reason": "No offering",
+    "case": "#21"
   },
   {
     "id": "76561199850977015",
-    "reason": "No offering"
+    "reason": "No offering",
+    "case": "#22"
   }
 ]
