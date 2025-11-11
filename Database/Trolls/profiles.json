@@ -96,5 +96,10 @@
   {
     "id": "76561198069535904",
     "reason": "No offering"
+  },
+  {
+    "id": "76561199222466289",
+    "reason": "Developer test!",
+    "case": null
   }
 ]
