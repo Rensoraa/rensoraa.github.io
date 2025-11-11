@@ -91,10 +91,12 @@
   },
   {
     "id": "76561199124024089",
-    "reason": "No offering"
+    "reason": "No offering",
+    "case": "#24"
   },
   {
     "id": "76561198069535904",
-    "reason": "No offering"
+    "reason": "No offering",
+    "case": "#25"
   }
 ]
