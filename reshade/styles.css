@@ -95,10 +95,17 @@ body::after {
 /* File list */
 .file-list {
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 buttons per row */
+  gap: 0.8rem 0.8rem; /* vertical | horizontal spacing, smaller = closer together */
+  justify-items: center;
+  margin-top: 1.8rem;
+  max-width: 520px; /* optional: keeps the 3 buttons closer together on wide screens */
+  margin-left: auto;
+  margin-right: auto;
 }
+
+
 
 /* File buttons (pill style for individual files) */
 .file-list a {
@@ -128,7 +135,6 @@ body::after {
   box-shadow: 0 0 12px rgba(255,77,109,0.5), 0 0 18px rgba(125,60,255,0.5);
   transition: 0.22s ease;
 }
-
 .zip-btn:hover {
   transform: translateY(-4px) scale(1.03);
   box-shadow: 0 0 28px rgba(255,77,109,0.9), 0 0 45px rgba(125,60,255,0.9);
