@@ -156,13 +156,15 @@
 
         <div class="grid-cards">
           <!-- Card 1 -->
-          <article class="game-card">
+          <article class="game-card" data-appid="381210">
             <div class="card-thumb" style="background-image: url('assets/Game-Cards/dbd.jpg');"></div>
             <div class="card-body">
               <h3>Dead by Daylight</h3>
-              <p>Currently: around 2.8k hours</p>
+              <i>i have a love hate relationship with this game. Also BHVR FTLOG FIX YOUR SHIT</i>
+              <p class="playtime">Loading...</p>
               <div class="card-actions">
                 <a class="mini-btn" href="/games/Dead-by-Daylight/">More</a>
+                <a class="mini-btn" href="https://deadbystats.eu/profile/rensora">Stats</a>
               </div>
             </div>
           </article>
@@ -172,31 +174,34 @@
             <div class="card-thumb" style="background-image: url('assets/Game-Cards/val.jpg');"></div>
             <div class="card-body">
               <h3>Valorant</h3>
-              <p>Currently: around 1.5k hours</p>
+              <i>Used to grind this shit game a lot<br>about 2 years back, now i cannot stop because of the money spend...</i>
+              <p>Currently: 1.5k hours</p>
               <div class="card-actions">
                 <a class="mini-btn" href="/games/Valorant/">More</a>
                 <a class="mini-btn" href="https://tracker.gg/valorant/profile/riot/Rensora%23CRKD/overview?platform=pc&playlist=competitive">Stats</a>
               </div>
             </div>
           </article>
-
           <!-- Card 3 -->
-          <article class="game-card">
+          <article class="game-card" data-appid="306130">
             <div class="card-thumb" style="background-image: url('assets/Game-Cards/teso.jpg');"></div>
             <div class="card-body">
-              <h3>The elder scrolls online</h3>
-              <p>Currently: around 1.1k hours</p>
-              <div class="card-actions">
-                <a class="mini-btn" href="/games/The-Elder-Scrolls-Online/">More</a>
-              </div>
+                <h3>The Elder Scrolls Online</h3>
+                <i>Love this game.<br>But recently been playing less and less due to issues.</i>
+                <p class="playtime">Loading...</p>
+                <div class="card-actions">
+                  <a class="mini-btn" href="/games/The-Elder-Scrolls-Online/">More</a>
+             </div>
             </div>
           </article>
+
           <!-- Card 4 -->
           <article class="game-card">
             <div class="card-thumb" style="background-image: url('assets/Game-Cards/Galaxy_life.jpg');"></div>
             <div class="card-body">
               <h3>Galaxy Life</h3>
-              <p>Lost my old account (facebook times)<br>Currently on steam.<br>3 planets. all Starbase Lvl5+<br>Currently: 31hrs</p>
+              <i>Lost my old account (facebook times)<br>Currently on steam.<br>3 planets. all Starbase Lvl5+</i>
+              <p>Currently: 30 hours</p>
               <div class="card-actions">
                 <a class="mini-btn" href="/games/Galaxy-Life/">More</a>
               </div>
@@ -208,7 +213,8 @@
             <div class="card-thumb" style="background-image: url('assets/Game-Cards/gtav.jpg');"></div>
             <div class="card-body">
               <h3>GTA V</h3>
-              <p>Feels like i played out the game honestly<br>Currently: around 1.2k hours</p>
+              <i>Feels like i played out the game honestly</i>
+              <p>Currently: around 1.2k hours</p>
               <div class="card-actions">
                 <a class="mini-btn" href="/games/GTAV/">More</a>
               </div>
@@ -220,7 +226,8 @@
             <div class="card-thumb" style="background-image: url('assets/Game-Cards/hrtst.jpg');"></div>
             <div class="card-body">
               <h3>Hearthstone</h3>
-              <p>Across all my accounts i have met many type of players.<br>It's been a wild ride!<br>Currently: 4.1k hours</p>
+              <i>Across all my accounts i have met many type of players.<br>It's been a wild ride!</i>
+              <p>Currently: 4.2k hours</p>
               <div class="card-actions">
                 <a class="mini-btn" href="/games/Hearthstone/">More</a>
               </div>
@@ -240,6 +247,36 @@
   <script>
     // small helpers
     document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+<script>
+// Utility to format hours
+function formatHours(hours) {
+  if (hours === 'N/A') return 'N/A';
+  if (hours >= 1000) {
+    return (hours / 1000).toFixed(1) + 'k';
+  }
+  return hours;
+}
+
+// Select all cards that have a data-appid attribute
+const gameCards = document.querySelectorAll('.game-card[data-appid]');
+
+gameCards.forEach(async card => {
+  const appid = card.getAttribute('data-appid');
+  const pTag = card.querySelector('p'); // the <p> that shows playtime
+
+  if (!appid || !pTag) return; // skip if missing
+
+  try {
+    const res = await fetch(`https://games-api.itsnielsje.workers.dev/?appid=${appid}`);
+    const data = await res.json();
+
+    pTag.textContent = `Currently: ${formatHours(data.playtime)} hours`;
+  } catch (err) {
+    pTag.textContent = 'Currently: N/A';
+    console.error('Error fetching playtime for', appid, err);
+  }
+});
   </script>
 </body>
 </html>
