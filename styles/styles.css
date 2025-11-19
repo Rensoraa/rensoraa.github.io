@@ -1,5 +1,6 @@
 /* Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 :root {
   --bg-1: #0f0f0f;
   --bg-2: #1a1a1a;
@@ -17,12 +18,11 @@ body {
   min-height: 100vh;
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
-  display: flex;
-  flex-direction: column;
   overflow-x: hidden;
+  position: relative; /* Added so glowing blobs position correctly */
 }
 
-/* glowing blobs */
+/* Glowing blobs */
 body::before {
   content: "";
   position: absolute; z-index: -2;
@@ -30,6 +30,7 @@ body::before {
   background: radial-gradient(circle, rgba(255,77,109,0.6), transparent 70%);
   top: -80px; left: -80px; filter: blur(120px);
 }
+
 body::after {
   content: "";
   position: absolute; z-index: -2;
@@ -47,6 +48,7 @@ body::after {
   z-index: 40;
   backdrop-filter: blur(6px);
 }
+
 .nav-inner {
   max-width: 1100px;
   margin: 0 auto;
@@ -54,6 +56,7 @@ body::after {
   align-items: center;
   justify-content: space-between;
 }
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -63,6 +66,7 @@ body::after {
   font-weight: 700;
   letter-spacing: 0.6px;
 }
+
 .brand-dot {
   width: 12px; height: 12px;
   border-radius: 50%;
@@ -72,6 +76,7 @@ body::after {
 
 /* Menu */
 .menu { display: flex; gap: 1rem; align-items: center; }
+
 .menu-link {
   color: var(--muted);
   text-decoration: none;
@@ -79,10 +84,19 @@ body::after {
   border-radius: .5rem;
   transition: color .18s ease, transform .12s ease;
 }
-.menu-link:hover { color: #fff; transform: translateY(-2px); }
 
-/* Page wrap */
-.page-wrap { width: 100%; max-width: 1100px; margin: 2.2rem auto; padding: 0 1.25rem; }
+.menu-link:hover {
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Page wrap (now centers correctly) */
+.page-wrap {
+  width: 100%;
+  max-width: 1100px;
+  margin: 2.2rem auto;
+  padding: 0 1.25rem;
+}
 
 /* Glass card base */
 .glass {
@@ -91,14 +105,24 @@ body::after {
   border-radius: 14px;
   padding: 1.6rem;
   border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.55), inset 0 1px 2px rgba(255,255,255,0.03);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.55),
+              inset 0 1px 2px rgba(255,255,255,0.03);
   position: relative;
   overflow: hidden;
 }
 
 /* Hero */
-.hero { display: grid; place-items: center; margin-bottom: 1.4rem; }
-.card-hero { max-width: 820px; text-align: center; padding: 2.2rem; }
+.hero {
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.4rem;
+}
+
+.card-hero {
+  max-width: 820px;
+  text-align: center;
+  padding: 2.2rem;
+}
 
 /* Titles */
 .glossy-title {
@@ -108,12 +132,20 @@ body::after {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.desc { color: #ddd; margin-bottom: 1rem; }
 
-/* Button row / main buttons */
-.button-row { display: inline-flex; gap: 1rem; margin-top: .8rem; }
+.desc {
+  color: #ddd;
+  margin-bottom: 1rem;
+}
 
-/* Glowing button (main) */
+/* Button row */
+.button-row {
+  display: inline-flex;
+  gap: 1rem;
+  margin-top: .8rem;
+}
+
+/* Main glowing button */
 .glow-btn {
   background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
   border: none;
@@ -122,29 +154,52 @@ body::after {
   font-size: 1rem;
   border-radius: 999px;
   cursor: pointer;
-  box-shadow: 0 0 15px rgba(255,77,109,0.6), 0 0 25px rgba(125,60,255,0.6);
+  box-shadow: 0 0 15px rgba(255,77,109,0.6),
+              0 0 25px rgba(125,60,255,0.6);
   transition: all 0.25s ease;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: .6rem;
 }
-.glow-btn:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 0 28px rgba(255,77,109,0.9), 0 0 45px rgba(125,60,255,0.9); }
+
+.glow-btn:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 0 28px rgba(255,77,109,0.9),
+              0 0 45px rgba(125,60,255,0.9);
+}
+
 .glow-btn:active { transform: scale(.98); }
 
 /* Sections */
 .section { margin: 1.6rem 0; }
-.section-title { font-size: 1.4rem; margin-bottom: .4rem; background: linear-gradient(90deg,var(--accent-a),var(--accent-b)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+.section-title {
+  font-size: 1.4rem;
+  margin-bottom: .4rem;
+  background: linear-gradient(90deg,var(--accent-a),var(--accent-b));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .section-desc { color: #ccc; margin-bottom: 1rem; }
 
-/* Two column small layout */
+/* Two column layout */
 .two-col {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin-top: .8rem;
 }
-.about-blob { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding: 1rem; border-radius: 10px; }
+
+.about-blob {
+  background: linear-gradient(180deg,
+             rgba(255,255,255,0.02),
+             rgba(255,255,255,0.01));
+  padding: 1rem;
+  border-radius: 10px;
+}
+
 .about-blob h3 { margin-bottom: .4rem; }
 
 /* Specs gallery */
@@ -155,7 +210,7 @@ body::after {
   margin-top: 1.5rem;
   text-align: center;
 }
-/* Specs gallery text */
+
 .spec-card p {
   font-size: 0.95rem;
   font-weight: 600;
@@ -167,8 +222,10 @@ body::after {
 }
 
 .spec-card:hover p {
-  text-shadow: 0 0 6px rgba(255,77,109,0.7), 0 0 10px rgba(125,60,255,0.7);
+  text-shadow: 0 0 6px rgba(255,77,109,0.7),
+               0 0 10px rgba(125,60,255,0.7);
 }
+
 .spec-card img {
   width: 100%;
   max-width: 120px;
@@ -176,36 +233,96 @@ body::after {
   border-radius: 10px;
   display: block;
 }
-.spec-card p {
-  font-size: 0.95rem;
-  color: #f2f2f2;
-}
 
-/* Game cards grid */
+/* Game cards */
 .grid-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
 }
-.game-card { display: flex; flex-direction: column; border-radius: 12px; overflow: hidden; background: linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.25)); border: 1px solid rgba(255,255,255,0.04); }
-.card-thumb { height: 140px; background-size: cover; background-position: center; }
-.card-body { padding: .8rem 1rem; display: flex; flex-direction: column; gap: .6rem; }
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(180deg,
+              rgba(0,0,0,0.3),
+              rgba(0,0,0,0.25));
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.card-thumb {
+  height: 140px;
+  background-size: cover;
+  background-position: center;
+}
+
+.card-body {
+  padding: .8rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
 .card-body h3 { font-size: 1.05rem; }
-.card-actions { margin-top: auto; display: flex; gap: .6rem; }
-.mini-btn { background: transparent; border: 1px solid rgba(255,255,255,0.06); padding: .45rem .7rem; border-radius: 8px; color: #ddd; text-decoration: none; font-size: .9rem; }
+
+.card-actions {
+  margin-top: auto;
+  display: flex;
+  gap: .6rem;
+}
+
+.mini-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: .45rem .7rem;
+  border-radius: 8px;
+  color: #ddd;
+  text-decoration: none;
+  font-size: .9rem;
+}
+
 .mini-btn:hover { transform: translateY(-3px); color: #fff; }
 
 /* Embeds */
-.embed-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: .8rem; }
-.embed-box { display: flex; flex-direction: column; gap: .6rem; }
-.embed-box iframe { width: 100%; height: 200px; border-radius: 8px; border: none; background: rgba(0,0,0,0.45); }
+.embed-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: .8rem;
+}
+
+.embed-box {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+.embed-box iframe {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(0,0,0,0.45);
+}
 
 /* Footer */
-.site-footer { margin-top: 2rem; padding: 1.2rem 1rem; }
-.footer-inner { max-width: 1100px; margin: 0 auto; text-align: center; padding: .8rem; border-radius: 10px; }
+.site-footer {
+  margin-top: 2rem;
+  padding: 1.2rem 1rem;
+}
 
-/* Responsive tweaks */
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+  padding: .8rem;
+  border-radius: 10px;
+}
+
+/* Responsive */
 @media (max-width: 800px) {
   .two-col { grid-template-columns: 1fr; }
   .nav-inner { padding: 0 .5rem; }
