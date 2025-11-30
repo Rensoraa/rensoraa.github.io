@@ -1,6 +1,6 @@
 :root {
-    --purple-main: #4b0082;
-    --purple-hover: #6a0dad;
+    --purple-main: #ff008a;
+    --purple-hover: #ff389b;
 }
 * {
     margin: 0;
@@ -56,7 +56,7 @@ p {
 .screenshot img {
     width: 100%;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(75, 0, 130, 0.5);
+    box-shadow: 0 0 10px rgba(255, 0, 138, 1);
     transition: transform 0.2s ease;
 }
 .screenshot img:hover {
@@ -100,7 +100,7 @@ footer {
     max-width: 75%;
     max-height: 80%;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(75, 0, 130, 0.6);
+    box-shadow: 0 0 20px rgba(255, 0, 138, 1);
 }
 .lightbox-info {
     max-width: 30%;
@@ -108,7 +108,7 @@ footer {
     padding: 1rem;
     border-radius: 10px;
     color: #eee;
-    box-shadow: 0 0 15px rgba(75, 0, 130, 0.3);
+    box-shadow: 0 0 15px rgba(255, 0, 138, 0.5);
     text-align: left;
 }
 .lightbox-info h3 {
@@ -132,7 +132,7 @@ footer {
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 0 10px rgba(75, 0, 130, 0.4);
+    box-shadow: 0 0 10px rgba(255, 0, 138, 0.5);
     transition: background 0.2s ease;
     z-index: 10;
 }
@@ -152,7 +152,7 @@ footer {
     padding: 6px 12px;
     border-radius: 6px;
     font-size: 0.95rem;
-    box-shadow: 0 0 10px rgba(75, 0, 130, 0.4);
+    box-shadow: 0 0 10px rgba(255, 0, 138, 0.3);
     z-index: 9;
 }
 .p100-counter { top: 225px; right: 20px; }
@@ -190,12 +190,12 @@ footer {
     width: 160px;
     background-color: #1a1a1a;
     color: #fff;
-    box-shadow: 0 0 10px rgba(75, 0, 130, 0.5), 0 0 20px rgba(75, 0, 130, 0.3);
+    box-shadow: 0 0 10px rgba(255, 0, 138, 0.7), 0 0 20px rgba(255, 0, 138, 0.3);
     transition: box-shadow 0.2s ease, background 0.2s ease;
 }
 #search-input:focus {
     outline: none;
-    box-shadow: 0 0 15px rgba(75, 0, 130, 0.8), 0 0 25px rgba(75, 0, 130, 0.6);
+    box-shadow: 0 0 15px rgba(255, 0, 138, 0.8), 0 0 25px rgba(255, 0, 138, 0.6);
 }
 #search-results {
     list-style: none;
@@ -226,13 +226,13 @@ footer {
     padding: 6px 12px;
     border: 2px solid var(--purple-hover);
     border-radius: 8px;
-    box-shadow: 0 0 10px #6a0dadaa;
+    box-shadow: 0 0 10px #ff389b;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 .subsite-link a:hover, .subsite-link a:focus {
     background-color: var(--purple-hover);
     color: #111;
-    box-shadow: 0 0 20px #4b0082;
+    box-shadow: 0 0 20px #ff389b;
 }
 .footer-link {
     color: var(--purple-hover);
@@ -257,7 +257,7 @@ a {
     backdrop-filter: blur(8px);
     border-radius: 12px;
     padding: 10px;
-    box-shadow: 0 0 15px rgba(75, 0, 130, 0.4);
+    box-shadow: 0 0 15px rgba(255, 0, 138, 0.486);
     color: #fff;
     width: 220px;
     font-size: 0.9rem;
@@ -269,7 +269,7 @@ a {
     width: 48px;
     height: 48px;
     border-radius: 8px;
-    box-shadow: 0 0 8px rgba(75, 0, 130, 0.5);
+    box-shadow: 0 0 8px rgba(255, 0, 138, 1);
 }
 .dbd-info {
     display: flex;
@@ -296,7 +296,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 10px rgba(75, 0, 130, 0.4);
+    box-shadow: 0 0 10px rgba(255, 0, 138, 1);
     transition: background 0.2s ease;
     z-index: 10;
 }
@@ -335,7 +335,7 @@ a {
   padding: 12px 20px;
   font-size: 1rem;
   cursor: pointer;
-  box-shadow: 0 0 15px rgba(75, 0, 130, 0.5);
+  box-shadow: 0 0 15px rgba(255, 0, 138, 1);
   transition: background 0.2s ease;
   z-index: 50;
 }
@@ -358,7 +358,7 @@ a {
   background: #1a1a1a;
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 0 20px rgba(75,0,130,0.6);
+  box-shadow: 0 0 20px rgba(255, 0, 136, 0.8);
   width: 90%;
   max-width: 500px;
   text-align: left;
@@ -388,7 +388,7 @@ a {
   border: 1px solid #333;
   border-radius: 8px;
   font-size: 0.95rem;
-  box-shadow: 0 0 10px rgba(75, 0, 130, 0.3);
+  box-shadow: 0 0 10px rgba(255, 0, 138, 1);
 }
 
 .contact-actions {
@@ -445,11 +445,11 @@ a {
   border-radius: 12px;
   text-align: center;
   max-width: 350px;
-  box-shadow: 0 0 20px #9D00FF;
+  box-shadow: 0 0 20px #ff389b;
 }
 
 .alert-content button {
-  background: #9D00FF;
+  background: #ff389b;
   border: none;
   padding: 8px 15px;
   color: #fff;
@@ -459,6 +459,6 @@ a {
 }
 
 .alert-content a {
-  color: #9D00FF;
+  color: #d41675;
   text-decoration: underline;
 }
