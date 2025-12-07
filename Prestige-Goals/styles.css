@@ -91,6 +91,12 @@ h1 {
   margin-top: 0.4rem;
 }
 
+.unlocked {
+  color: #ffffff;
+  font-size: 0.95rem;
+  text-shadow: 0 0 9px #00f7ff;
+}
+
 .priority {
   font-weight: bold;
   margin-top: 0.6rem;
@@ -109,6 +115,11 @@ h1 {
 
 .priority-low {
   color: #777;
+}
+
+.priority-maxed {
+  color: #e102ff;
+  text-shadow: 0 0 8px #e102ffaa;
 }
 
 #p100-wrapper {
