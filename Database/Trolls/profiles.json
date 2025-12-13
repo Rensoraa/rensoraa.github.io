@@ -138,5 +138,25 @@
     "id": "76561199507186716",
     "reason": "No offering",
     "case": "#33"
+  },
+  {
+    "id": "76561199833979954",
+    "reason": "Griefing teammate",
+    "case": "#34"
+  },
+  {
+    "id": "76561199375430223",
+    "reason": "No offering // Planned on playing normal",
+    "case": "#35"
+  },
+  {
+    "id": "76561198774805201",
+    "reason": "No offering // Planned on playing normal",
+    "case": "#36"
+  },
+  {
+    "id": "76561198789325420",
+    "reason": "Wrong offering // Planned on playing normal",
+    "case": "#38"
   }
 ]
