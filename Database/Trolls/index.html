@@ -31,7 +31,8 @@
   <div class="appeal-modal">
     <button class="appeal-close" id="appealClose">&times;</button>
 
-    <h2>Appeal a Blacklist</h2>
+    <h2>Submit an Appeal</h2>
+    <p>If you believe your Steam profile was wrongly added to our list, you can submit a listing dispute below. Please provide a valid reason for your dispute.</p>
 
     <!-- Step 1: Enter Steam ID/URL -->
     <div id="appeal-step-check" class="appeal-step">
@@ -227,8 +228,8 @@ appealCheckBtn.addEventListener("click", async () => {
     // Populate modal with Steam info and reason
     appealAvatar.src = steamData.avatarfull;
     appealName.textContent = steamData.personaname;
-    appealList.textContent = `Listed in: ${found.case}`;
-    appealOrigReason.textContent = `Original reason: ${found.reason}`;
+    appealList.textContent = `Case no: ${found.case}`;
+    appealOrigReason.textContent = `Provided reason: ${found.reason}`;
 
     stepCheck.classList.add("hidden");
     stepFound.classList.remove("hidden");
