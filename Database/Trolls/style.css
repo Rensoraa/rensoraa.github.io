@@ -54,7 +54,9 @@ h1 {
   background: #1f1f1f;
   color: #eaeaea;
   outline: none;
-  width: 180px;
+  width: 12vw;
+  min-width: 120px;
+  max-width: 220px;
 }
 
 .input-box input:focus {
@@ -79,7 +81,7 @@ h1 {
 /* Profile cards */
 .profiles-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   justify-items: center;
   gap: 20px;
   margin-top: 20px;
@@ -90,7 +92,8 @@ h1 {
   border: 2px solid #4aa8ff;
   border-radius: 12px;
   padding: 15px;
-  width: 260px;
+  width: 90%;
+  max-width: 260px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,8 +108,10 @@ h1 {
 }
 
 .profile img {
-  width: 90px;
-  height: 90px;
+  width: 20vw;
+  max-width: 90px;
+  height: auto;
+  aspect-ratio: 1/1;
   border-radius: 50%;
   margin-bottom: 10px;
   border: 2px solid #4aa8ff;
@@ -201,8 +206,8 @@ h1 {
   border: 2px solid #4aa8ff;
   border-radius: 12px;
   padding: 20px 30px;
-  width: 440px;
-  max-width: 90%;
+  width: 80%;
+  max-width: 440px;
   text-align: center;
   box-shadow: 0 0 20px rgba(74, 168, 255, 0.6);
   z-index: 1001;
@@ -289,6 +294,8 @@ h1 {
   display: none;
   font-weight: bold;
 }
+
+/* Language select */
 #languageSelect {
   appearance: none;
   background-color: #111;
@@ -302,12 +309,12 @@ h1 {
   cursor: pointer;
   outline: none;
   transition: 0.2s ease-in-out;
-  position: fixed;      /* Makes it float */
-  top: 20px;            /* Distance from top */
-  left: 20px;           /* Distance from left */
-  z-index: 999;         /* Ensure it’s above other content */
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 999;
   box-shadow: 0 0 15px rgba(74, 168, 255, 0.6);
-  text-align: center;   /* Center the text */
+  text-align: center;
 }
 
 #languageSelect:hover {
@@ -323,8 +330,10 @@ h1 {
 #languageSelect option {
   background-color: #111;
   color: #fff;
-  text-align: center;   /* Center the option text too */
+  text-align: center;
 }
+
+/* Loading overlay */
 #loadingOverlay {
   position: fixed;
   top: 0;
@@ -360,54 +369,49 @@ h1 {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-.about-btn {
-  position: fixed;   /* allows you to place it anywhere */
-  bottom: 65px;
-  right: 20px;
-  background-color: #66c0f4;
-  color: #fff;
-  border: none;
-  padding: 10px 30px;
-  cursor: pointer;
+
+/* Fixed buttons */
+.about-btn, .appeal-btn {
+  position: fixed;
   z-index: 1000;
   border-radius: 8px;
   border: 2px solid #4aa8ff;
-  background: #1f1f1f;
+  padding: 10px 18px;
   font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
+.about-btn {
+  bottom: 65px;
+  right: 20px;
+  background: #1f1f1f;
+}
 
 .about-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(102, 192, 244, 0.6);
+  box-shadow: 0 0 15px rgba(102,192,244,0.6);
   background: #2a2f39;
   border-color: #66c0ff;
 }
-/* Appeal Button */
-.appeal-btn {
-  position: fixed; /* change to fixed if you want it to stay on scroll */
-  top: 865px; /* adjust position freely */
-  right: 1800px;
 
+.appeal-btn {
+  top: 85%;
+  right: 5%;
   background-color: #1b2838;
   color: #c7d5e0;
   border: 2px solid #66c0f4;
-  border-radius: 12px;
-  padding: 10px 18px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px rgba(102, 192, 244, 0.3);
+  box-shadow: 0 0 10px rgba(102,192,244,0.3);
 }
 
 .appeal-btn:hover {
   background-color: #66c0f4;
   color: #0b0b0b;
-  box-shadow: 0 0 20px rgba(102, 192, 244, 0.7);
+  box-shadow: 0 0 20px rgba(102,192,244,0.7);
   transform: scale(1.05);
 }
-/* Appeal modal styles - add to style.css */
+
+/* Appeal modal styles */
 .appeal-overlay {
   position: fixed;
   inset: 0;
@@ -422,7 +426,7 @@ h1 {
 .appeal-overlay.hidden { display: none; }
 
 .appeal-modal {
-  width: 100%;
+  width: 90%;
   max-width: 520px;
   background: #111417;
   border: 2px solid #2a6fa8;
@@ -452,7 +456,6 @@ h1 {
 }
 
 .appeal-step { margin-top: 8px; }
-
 .appeal-step.hidden { display: none; }
 
 .appeal-modal label {
@@ -515,8 +518,10 @@ h1 {
 }
 
 .appeal-found img {
-  width: 72px;
-  height: 72px;
+  width: 14vw;
+  max-width: 72px;
+  height: auto;
+  aspect-ratio: 1/1;
   border-radius: 50%;
   border: 2px solid #66c0f4;
   object-fit: cover;
@@ -543,9 +548,24 @@ h1 {
   overflow: auto;
 }
 
-/* Responsive tweak */
+/* Responsive tweaks */
+@media (max-width: 1200px) {
+  .input-box { right: 10px; }
+  #languageSelect { left: 10px; }
+  .about-btn { right: 15px; bottom: 60px; }
+  .appeal-btn { right: 15px; top: auto; bottom: 120px; }
+}
+
+@media (max-width: 768px) {
+  .input-box { flex-direction: column; top: 15px; right: 15px; gap: 4px; }
+  .profiles-list { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+  .input-box input { width: 140px; }
+  .about-btn, .appeal-btn { padding: 8px 12px; font-size: 14px; }
+}
+
 @media (max-width: 480px) {
   .appeal-modal { padding: 14px; max-width: 92%; }
-  .appeal-found img { width: 56px; height: 56px; }
-  .btn { padding: 8px 10px; }
+  .appeal-found img { max-width: 56px; }
+  .btn { padding: 6px 10px; font-size: 0.85rem; }
+  .input-box input { width: 120px; }
 }
