@@ -386,7 +386,7 @@ h1 {
 /* Appeal Button */
 .appeal-btn {
   position: fixed; /* change to fixed if you want it to stay on scroll */
-  top: 900px; /* adjust position freely */
+  top: 865px; /* adjust position freely */
   right: 1800px;
 
   background-color: #1b2838;
