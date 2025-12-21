@@ -120,6 +120,7 @@
     <h2 id="submitTitle">Submit a Steam ID / Profile</h2>
     <input type="text" id="steamIdInput" placeholder="Steam ID or Steam Profile Link" />
     <textarea id="reasonInput" rows="4" placeholder="Reason for submission"></textarea>
+    <textarea id="originuser" placeholder="Please provide your name here. (discord // Steam)"></textarea>
     <button id="submitFormBtn">Submit</button>
     <button id="closeSubmission">Cancel</button>
   </div>
@@ -497,6 +498,7 @@ const closeSubmission = document.getElementById("closeSubmission");
 const submitFormBtn = document.getElementById("submitFormBtn");
 const steamIdInput = document.getElementById("steamIdInput");
 const reasonInput = document.getElementById("reasonInput");
+const originuser = document.getElementById("originuser");
 const customAlert = document.getElementById("customAlert");
 
 submitBtn.addEventListener("click", () => submissionOverlay.classList.remove("hidden"));
@@ -534,7 +536,8 @@ submitFormBtn.addEventListener("click", async () => {
       color: 0x005f9e,
       fields: [
         { name: "Steam ID / Profile", value: displayValue, inline: false },
-        { name: "Reason", value: reason, inline: false }
+        { name: "Reason", value: reason, inline: false },
+        { name: "Submitted by", value: originuser.value.trim() || "Anonymous", inline: false }
       ],
       timestamp: new Date().toISOString()
     }]
