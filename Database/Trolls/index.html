@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<title>Non-Farmer Steam Profiles</title>
+<link rel="stylesheet" href="style.css" />
+<meta property="og:type" content="website">
+<meta property="og:title" content="Non-Farmer Steam Profiles">
+<meta property="og:description" content="A curated list of Steam profiles that are non-farmers or griefers on cross-off. Check profiles, reasons, and more.">
+<meta property="og:image" content="https://rensoraa.github.io/Database/Trolls/assets/Metadata.png">
+<meta property="og:url" content="https://rensoraa.github.io">
+<meta name="theme-color" content="#4aa8ff">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Non-Farmer Steam Profiles">
+<meta name="twitter:description" content="A curated list of Steam profiles that are non-farmers or griefers on cross-off. Check profiles, reasons, and more.">
+<meta name="twitter:image" content="https://rensoraa.github.io/Database/Trolls/assets/Metadata.png">
+<meta name="twitter:site" content="@Rensora__">
+<meta name="twitter:creator" content="@Rensora__">
+<meta name="theme-color" content="#4aa8ff">
+</head>
+<body>
+  <div id="loadingOverlay">
+  <div class="loader"></div>
+  <p>Connecting to Steam API...</p>
+</div>
+
+<!-- Appeal Modal -->
+<div class="appeal-overlay hidden" id="appealOverlay">
+  <div class="appeal-modal">
+    <button class="appeal-close" id="appealClose">&times;</button>
+
+    <h2>Submit an Appeal</h2>
+    <p>If you believe your Steam profile was wrongly added to our list, you can submit a listing dispute below. Please provide a valid reason for your dispute.</p>
+
+    <!-- Step 1: Enter Steam ID/URL -->
+    <div id="appeal-step-check" class="appeal-step">
+      <label>Enter SteamID64 or profile URL</label>
+      <input type="text" id="appealCheckInput" placeholder="7656119xxxxxxxxx or https://steamcommunity.com/id/vanity" />
+      <div class="appeal-row">
+        <button id="appealCheckBtn" class="btn">Check</button>
+        <button id="appealCancelBtn" class="btn ghost">Cancel</button>
+      </div>
+      <p class="appeal-help" id="appealCheckMsg"></p>
+    </div>
+
+    <!-- Step 2: Show found profile + original reason -->
+    <div id="appeal-step-found" class="appeal-step hidden">
+      <div class="appeal-found">
+        <img id="appealAvatar" src="" alt="avatar">
+        <div class="appeal-found-info">
+          <div id="appealName" class="name">—</div>
+          <div id="appealList" class="small">Listed in: —</div>
+          <div id="appealOrigReason" class="orig-reason">Original reason: —</div>
+        </div>
+      </div>
+
+      <label for="appealReason">Your reason for appeal</label>
+      <textarea id="appealReason" rows="4" placeholder="Explain why you should be removed..."></textarea>
+
+      <div class="appeal-row">
+        <button id="appealSubmitBtn" class="btn primary">Submit Appeal</button>
+        <button id="appealBackBtn" class="btn ghost">Back</button>
+      </div>
+
+      <p class="appeal-help" id="appealSubmitMsg"></p>
+    </div>
+
+    <!-- Step 3: Not found -->
+    <div id="appeal-step-notfound" class="appeal-step hidden">
+      <p class="appeal-notfound">This Steam ID was not found in our lists.</p>
+      <div class="appeal-row">
+        <button id="appealNotfoundClose" class="btn">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h1 id="title">Collected Steam Profiles</h1>
+  <a id="subtitle">These people either bring no offer or play normal/Grief others on cross-off</a>
+  <p class="counter" id="profileCount">0 accounts stored</p>
+
+  <div class="input-box">
+    <input type="text" id="input" placeholder="Search Steam ID or Vanity" />
+    <button id="searchBtn">Search</button>
+    <button id="resetBtn">Show All</button>
+    <select id="languageSelect">
+      <option value="en">English</option>
+      <option value="nl">Nederlands</option>
+      <option value="de">Deutsch</option>
+      <option value="zh">中文</option>
+      <option value="ru">Русский</option>
+      <option value="tr">Türkçe</option>
+      <option value="fr">Français</option>
+      <option value="it">Italiano</option>
+      <option value="da">Dansk</option>
+      <option value="es">Español</option>
+    </select>
+  </div>
+
+  <div id="profilesList" class="profiles-list"></div>
+  <p id="error" class="error hidden"></p>
+</div>
+
+<button class="submit-button" id="submitBtn">Submit ID</button>
+<button id="aboutButton" class="about-btn">About</button>
+<button id="appealButton" class="appeal-btn">Appeal</button>
+
+<div class="popup-overlay hidden" id="reasonOverlay">
+  <div class="custom-popup">
+    <p id="reasonText"></p>
+    <button id="closeReason">Close</button>
+  </div>
+</div>
+
+<div class="submission-overlay hidden" id="submissionOverlay">
+  <div class="submission-popup">
+    <h2 id="submitTitle">Submit a Steam ID / Profile</h2>
+    <input type="text" id="steamIdInput" placeholder="Steam ID or Steam Profile Link" />
+    <textarea id="reasonInput" rows="4" placeholder="Reason for submission"></textarea>
+    <textarea id="originuser" placeholder="Please provide your name here. (discord // Steam)"></textarea>
+    <button id="submitFormBtn">Submit</button>
+    <button id="closeSubmission">Cancel</button>
+  </div>
+</div>
+
+<div class="custom-alert" id="customAlert"></div>
+
+<script>
+const workerUrl = "https://steam-api-proxy.itsnielsje.workers.dev";
+const listContainer = document.getElementById("profilesList");
+const error = document.getElementById("error");
+const input = document.getElementById("input");
+const searchBtn = document.getElementById("searchBtn");
+const resetBtn = document.getElementById("resetBtn");
+const profileCount = document.getElementById("profileCount");
+const loadingOverlay = document.getElementById("loadingOverlay");
+
+const workerURL = "https://steam-api-proxy.itsnielsje.workers.dev";
+const profilesURL = "https://rensora.online/Database/Trolls/profiles.json";
+const killersURL = "https://rensora.online/Database/Trolls/Killers/killers.json";
+const webhookURL = "https://discord.com/api/webhooks/1433602132740804630/VlnjgVU2HEBPboinKIyTzsbj2TjCRLfatsR8IYgISDRyov4WZ_QtsgM2fftehJHuTeTn";
+
+// Elements
+const appealOverlay = document.getElementById("appealOverlay");
+const appealCheckInput = document.getElementById("appealCheckInput");
+const appealCheckBtn = document.getElementById("appealCheckBtn");
+const appealCancelBtn = document.getElementById("appealCancelBtn");
+const appealBackBtn = document.getElementById("appealBackBtn");
+const appealSubmitBtn = document.getElementById("appealSubmitBtn");
+const appealNotfoundClose = document.getElementById("appealNotfoundClose");
+
+const stepCheck = document.getElementById("appeal-step-check");
+const stepFound = document.getElementById("appeal-step-found");
+const stepNotfound = document.getElementById("appeal-step-notfound");
+
+const appealAvatar = document.getElementById("appealAvatar");
+const appealName = document.getElementById("appealName");
+const appealList = document.getElementById("appealList");
+const appealOrigReason = document.getElementById("appealOrigReason");
+const appealReasonInput = document.getElementById("appealReason");
+const appealCheckMsg = document.getElementById("appealCheckMsg");
+const appealSubmitMsg = document.getElementById("appealSubmitMsg");
+
+
+// Open modal
+document.getElementById("appealButton").addEventListener("click", () => {
+  appealOverlay.classList.remove("hidden");
+  stepCheck.classList.remove("hidden");
+  stepFound.classList.add("hidden");
+  stepNotfound.classList.add("hidden");
+  appealCheckInput.value = "";
+  appealCheckMsg.textContent = "";
+  appealReasonInput.value = "";
+  appealSubmitMsg.textContent = "";
+});
+
+// Cancel / Close buttons
+appealCancelBtn.addEventListener("click", () => appealOverlay.classList.add("hidden"));
+appealBackBtn.addEventListener("click", () => {
+  stepCheck.classList.remove("hidden");
+  stepFound.classList.add("hidden");
+  appealSubmitMsg.textContent = "";
+});
+appealNotfoundClose.addEventListener("click", () => appealOverlay.classList.add("hidden"));
+
+// Helper to fetch JSON
+async function fetchJSON(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("Failed to load JSON");
+  return await res.json();
+}
+
+// Check Steam ID in lists
+async function checkID(id) {
+  const [profiles, killers] = await Promise.all([fetchJSON(profilesURL), fetchJSON(killersURL)]);
+  return [...profiles, ...killers].find(entry => entry.id === id);
+}
+// Fetch Steam info
+async function getSteamProfile(id) {
+  const res = await fetch(`${workerURL}?steamid=${id}`);
+  if (!res.ok) throw new Error("Failed to fetch Steam data");
+  return await res.json();
+}
+
+// Step 1: Check ID
+appealCheckBtn.addEventListener("click", async () => {
+  const idInput = appealCheckInput.value.trim();
+  if (!idInput) return (appealCheckMsg.textContent = "Please enter a Steam ID or profile URL.");
+
+  // Extract SteamID64 if URL provided
+  let steamid = idInput.match(/\d{17}/)?.[0];
+  if (!steamid) return (appealCheckMsg.textContent = "Invalid Steam ID or URL.");
+
+  appealCheckMsg.textContent = "Checking lists...";
+
+  try {
+    const found = await checkID(steamid);
+    if (!found) {
+      stepCheck.classList.add("hidden");
+      stepNotfound.classList.remove("hidden");
+      return;
+}
+
+    const steamData = await getSteamProfile(steamid);
+
+    // Populate modal with Steam info and reason
+    appealAvatar.src = steamData.avatarfull;
+    appealName.textContent = steamData.personaname;
+    appealList.textContent = `Case no: ${found.case}`;
+    appealOrigReason.textContent = `Provided reason: ${found.reason}`;
+
+    stepCheck.classList.add("hidden");
+    stepFound.classList.remove("hidden");
+    appealCheckMsg.textContent = "";
+
+  } catch (err) {
+    console.error(err);
+    appealCheckMsg.textContent = "Error checking lists. Try again later.";
+  }
+});
+
+// Step 2: Submit appeal
+appealSubmitBtn.addEventListener("click", async () => {
+  const steamid = appealCheckInput.value.trim().match(/\d{17}/)?.[0];
+  const reason = appealReasonInput.value.trim();
+  if (!reason) return (appealSubmitMsg.textContent = "Please provide your appeal reason.");
+
+  try {
+    const steamData = await getSteamProfile(steamid);
+    const found = await checkID(steamid);
+
+    const payload = {
+      embeds: [
+        {
+          title: "📨 Blacklist Appeal Submitted",
+          color: 0x66c0f4,
+          thumbnail: { url: steamData.avatarfull },
+          fields: [
+            { name: "Steam Name", value: steamData.personaname, inline: true },
+            { name: "Steam ID", value: steamid, inline: true },
+            { name: "Original Reason", value: found.reason, inline: false },
+            { name: "Appeal Reason", value: reason, inline: false }
+          ],
+          footer: { text: `Case ${found.case}` },
+          timestamp: new Date().toISOString()
+        }
+      ]
+    };
+
+    const res = await fetch(webhookURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (res.ok) {
+      appealSubmitMsg.textContent = "Your appeal has been submitted!";
+      setTimeout(() => appealOverlay.classList.add("hidden"), 2000);
+    } else appealSubmitMsg.textContent = "Failed to submit appeal.";
+
+  } catch (err) {
+    console.error(err);
+    appealSubmitMsg.textContent = "Error submitting appeal.";
+  }
+});
+
+// Close modal on overlay click (optional)
+appealOverlay.addEventListener("click", e => {
+  if (e.target === appealOverlay) appealOverlay.classList.add("hidden");
+});
+
+// Close modal with X button
+document.getElementById("appealClose").addEventListener("click", () => appealOverlay.classList.add("hidden"));
+
+let profilesData = [];
+let allowedProfiles = [];
+let currentLang = localStorage.getItem("lang") || "en";
+let lang = {};
+
+// === LANGUAGE SYSTEM ===
+const languageSelect = document.getElementById("languageSelect");
+
+async function loadLanguage(code) {
+  try {
+    const res = await fetch(`lang/${code}.json`);
+    lang = await res.json();
+
+    document.getElementById("title").textContent = lang.title;
+    document.getElementById("subtitle").textContent = lang.subtitle;
+    searchBtn.textContent = lang.search;
+    resetBtn.textContent = lang.show_all;
+    document.getElementById("submitBtn").textContent = lang.submit_id;
+    document.getElementById("submitTitle").textContent = lang.submit_title;
+    document.getElementById("reasonInput").placeholder = lang.submit_reason_placeholder;
+    document.getElementById("aboutButton").textContent = lang.about;
+
+
+    refreshProfileCards();
+  } catch (e) {
+    console.warn("Failed to load language file:", code);
+  }
+}
+
+languageSelect.addEventListener("change", () => {
+  const selected = languageSelect.value;
+  const previous = localStorage.getItem("lang");
+  if (selected !== previous) {
+    localStorage.setItem("lang", selected);
+    currentLang = selected;
+    loadLanguage(selected).then(() => {
+      setTimeout(() => window.location.reload(), 200);
+    });
+  }
+});
+
+languageSelect.value = currentLang;
+loadLanguage(currentLang);
+
+// === PROFILE LOADING ===
+async function loadProfiles() {
+  const messages = [
+    "Connecting to Steam API...",
+    "Fetching Steam Profiles...",
+    "Processing Data...",
+    "Almost Done..."
+  ];
+  let i = 0;
+
+  // Show loader
+  loadingOverlay.classList.remove("hidden");
+
+  // Cycle loading messages
+  const interval = setInterval(() => {
+    const msgElem = loadingOverlay.querySelector("p");
+    if (msgElem) msgElem.textContent = messages[i % messages.length];
+    i++;
+  }, 1500);
+
+  try {
+    const res = await fetch("profiles.json");
+    allowedProfiles = await res.json();
+
+    for (const entry of allowedProfiles) {
+      const idOrVanity = typeof entry === "string" ? entry : entry.id;
+      const reason = typeof entry === "object" && entry.reason ? entry.reason : "No reason provided";
+
+      const div = document.createElement("div");
+      div.classList.add("profile");
+      div.dataset.key = idOrVanity.toLowerCase();
+      div.dataset.reason = reason;
+      div.innerHTML = `<p>⏳ Connecting to Steam API...</p>`;
+      listContainer.appendChild(div);
+
+      const isNumeric = /^\d+$/.test(idOrVanity);
+      const param = isNumeric ? `steamid=${idOrVanity}` : `vanity=${idOrVanity}`;
+
+      try {
+        const r = await fetch(`${workerUrl}/?${param}`);
+        const data = await r.json();
+
+        if (data && data.steamid) {
+          div.dataset.steamid = data.steamid;
+          div.dataset.personaname = data.personaname;
+          div.dataset.avatar = data.avatarfull;
+          div.dataset.profileurl = data.profileurl;
+
+          profilesData.push(div);
+          refreshProfileCard(div);
+        } else {
+          div.innerHTML = `<p>⚠️ Failed to load Steam profile.</p>`;
+        }
+      } catch (e) {
+        console.error("Failed to load profile:", idOrVanity, e);
+        div.innerHTML = `<p>⚠️ Failed to connect to Steam API.</p>`;
+      }
+    }
+
+    profileCount.textContent = `${profilesData.length} accounts stored`;
+  } catch (err) {
+    console.error(err);
+    error.textContent = "Failed to load profiles.json.";
+    error.classList.remove("hidden");
+  } finally {
+    clearInterval(interval);
+
+    // Hide loader with smooth transition
+    setTimeout(() => {
+      loadingOverlay.classList.add("hidden");
+      setTimeout(() => {
+        loadingOverlay.style.display = "none";
+        document.getElementById("content").style.display = "block";
+      }, 500);
+    }, 500);
+  }
+}
+
+// === REFRESH PROFILE CARD (single) ===
+function refreshProfileCard(div) {
+  if (!lang.view_on_steam) return;
+  let reasonHTML;
+  if (div.dataset.reason.length > 60) {
+    reasonHTML = `<span class="clickable-reason" data-reason="${div.dataset.reason}">${lang.reason_click || "Reason: Click here"}</span>`;
+  } else {
+    reasonHTML = `${lang.reason_label || "Reason"}: ${div.dataset.reason}`;
+  }
+
+  div.innerHTML = `
+    <img src="${div.dataset.avatar}" alt="Avatar">
+    <div class="info">
+      <h2>${div.dataset.personaname}</h2>
+      <p><strong>Steam ID:</strong> ${div.dataset.steamid}</p>
+      <p><strong>${reasonHTML}</strong></p>
+      <a href="${div.dataset.profileurl}" target="_blank">🔗 ${lang.view_on_steam || "View on Steam"}</a>
+    </div>
+  `;
+}
+
+// === REFRESH ALL PROFILE CARDS ===
+function refreshProfileCards() {
+  if (!lang.view_on_steam) return;
+  listContainer.innerHTML = "";
+  profilesData.forEach(refreshProfileCard);
+}
+
+// === SEARCH ===
+function searchProfiles() {
+  const query = input.value.trim().toLowerCase();
+  listContainer.innerHTML = "";
+  if (!query) {
+    refreshProfileCards();
+    return;
+  }
+
+  const matched = profilesData.filter(card => card.dataset.key.includes(query));
+  if (matched.length === 0) {
+    error.textContent = "No profile found in the database.";
+    error.classList.remove("hidden");
+  } else {
+    error.classList.add("hidden");
+    matched.forEach(card => listContainer.appendChild(card));
+  }
+}
+
+function resetSearch() {
+  input.value = "";
+  refreshProfileCards();
+  error.classList.add("hidden");
+}
+
+searchBtn.addEventListener("click", searchProfiles);
+resetBtn.addEventListener("click", resetSearch);
+loadProfiles();
+
+// === REASON POPUP ===
+const reasonOverlay = document.getElementById("reasonOverlay");
+const reasonText = document.getElementById("reasonText");
+const closeReason = document.getElementById("closeReason");
+
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("clickable-reason")) {
+    reasonText.innerHTML = e.target.dataset.reason.replace(/\n/g, "<br>");
+    reasonOverlay.classList.remove("hidden");
+  }
+});
+
+closeReason.addEventListener("click", () => reasonOverlay.classList.add("hidden"));
+reasonOverlay.addEventListener("click", e => {
+  if (e.target === reasonOverlay) reasonOverlay.classList.add("hidden");
+});
+
+// === SUBMISSION ===
+const submitBtn = document.getElementById("submitBtn");
+const submissionOverlay = document.getElementById("submissionOverlay");
+const closeSubmission = document.getElementById("closeSubmission");
+const submitFormBtn = document.getElementById("submitFormBtn");
+const steamIdInput = document.getElementById("steamIdInput");
+const reasonInput = document.getElementById("reasonInput");
+const originuser = document.getElementById("originuser");
+const customAlert = document.getElementById("customAlert");
+
+submitBtn.addEventListener("click", () => submissionOverlay.classList.remove("hidden"));
+closeSubmission.addEventListener("click", () => submissionOverlay.classList.add("hidden"));
+submissionOverlay.addEventListener("click", e => {
+  if (e.target === submissionOverlay) submissionOverlay.classList.add("hidden");
+});
+
+function showAlert(msg, duration = 3000) {
+  customAlert.textContent = msg;
+  customAlert.style.display = "block";
+  setTimeout(() => { customAlert.style.display = "none"; }, duration);
+}
+
+submitFormBtn.addEventListener("click", async () => {
+  const steamId = steamIdInput.value.trim();
+  const reason = reasonInput.value.trim();
+  if (!steamId || !reason) {
+    showAlert(lang.submit_fail || "Please fill in both Steam ID/Link and Reason");
+    return;
+  }
+
+  let displayValue = steamId;
+  const vanityMatch = steamId.match(/steamcommunity\.com\/id\/([^/]+)/);
+  const idMatch = steamId.match(/(\d{17})/);
+
+  if (vanityMatch) displayValue = `[${vanityMatch[1]}](${steamId})`;
+  else if (idMatch) displayValue = `Steam ID: ${idMatch[1]}`;
+
+  const webhookUrl = "https://discord.com/api/webhooks/1430636173612552265/A1aQbkqlBuRctnCjG54LvtrP1ldQFCV7x8S2BMc6Vidrl1QK8rw7Re-WK1lWj9Tcq1gj";
+  const payload = {
+    content: "<@929521121475313804>",
+    embeds: [{
+      title: "New Steam ID Submission | Non-Farmer database",
+      color: 0x005f9e,
+      fields: [
+        { name: "Steam ID / Profile", value: displayValue, inline: false },
+        { name: "Reason", value: reason, inline: false },
+        { name: "Submitted by", value: originuser.value.trim() || "Anonymous", inline: false }
+      ],
+      timestamp: new Date().toISOString()
+    }]
+  };
+
+  try {
+    const res = await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (res.ok) {
+      showAlert(lang.submit_success || "Submission sent successfully!");
+      steamIdInput.value = "";
+      reasonInput.value = "";
+      submissionOverlay.classList.add("hidden");
+    } else showAlert(lang.submit_fail || "Failed to send submission.");
+  } catch (err) {
+    console.error(err);
+    showAlert(lang.submit_fail || "Error sending submission.");
+  }
+});
+</script>
+<script>
+  document.getElementById("aboutButton").addEventListener("click", () => {
+    window.location.href = "about.html";
+  });
+</script>
+</body>
+</html>
