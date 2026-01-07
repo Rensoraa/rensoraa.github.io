@@ -1,7 +1,0 @@
-assets/p100-screenshots/Survivor/Nea.jpg
-assets/p100-screenshots/Survivor/Sable.jpg
-assets/p100-screenshots/Survivor/Mika.jpg
-assets/p100-screenshots/Killer/P100_Legion.jpg
-assets/p100-screenshots/Survivor/Vee.jpg
-assets/p100-screenshots/Killer/P100_Blight.jpg
-assets/p100-screenshots/Killer/P100_BlightV2.jpg
