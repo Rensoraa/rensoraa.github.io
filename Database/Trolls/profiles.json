@@ -173,5 +173,15 @@
     "id": "76561198843878597",
     "reason": "No offering // Planned on playing normal",
     "case": "#43"
+  },
+  {
+    "id": "76561198943322657",
+    "reason": "Griefs teammates",
+    "case": "#44"
+  },
+  {
+    "id": "76561199033771204",
+    "reason": "Leaves games early No hooks",
+    "case": "#45"
   }
 ]
