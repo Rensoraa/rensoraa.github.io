@@ -1,0 +1,83 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Orbitron", sans-serif;
+  background: linear-gradient(135deg, #1a1a1a, #000);
+  color: #f2f2f2;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px;
+  width: 100%;
+  margin: 40px auto;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.site-header { padding: 1rem 0; }
+.brand {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.brand-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #ff4d6d, #7d3cff);
+}
+
+.glossy-title {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #ff4d6d, #7d3cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.game-hero {
+  background: rgba(255,255,255,0.05);
+  padding: 2rem;
+  border-radius: 20px;
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.55), inset 0 1px 2px rgba(255,255,255,0.03);
+}
+
+.game-image {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.game-desc {
+  margin-bottom: 20px;
+  color: #ccc;
+  font-size: 1.05rem;
+}
+
+.glow-btn {
+  background: linear-gradient(90deg, #ff4d6d, #7d3cff);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  margin: 5px;
+}
+
+.glow-btn:hover {
+  box-shadow: 0 0 15px #ff4d6d, 0 0 25px #7d3cff;
+}
+
+.back-row {
+  margin-top: 30px;
+}
