@@ -1,0 +1,3 @@
+-  Update API for ranked system
+- Change color way of p100.rensora.online
+- Remove unused pages/assets
